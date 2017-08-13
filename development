@@ -1,0 +1,144 @@
+select * from favorites;
+select * from contributors;
+select * from lists
+select * from contributors;
+select * from lists;
+select * from users;
+\l
+\q
+select * from favorites;
+\q
+select * from points;
+select * from points;
+select * from lists;
+select * from favorites;
+select * from points;
+]q
+\q
+select * from points;
+select * from favorites;
+\q
+select * from points;
+select * from contributors;
+select * from favorites;
+select * from users;
+select * from lists;
+\q
+select * from points;
+\q
+\d
+\q
+select * from users;
+select * from points;
+rs
+\q
+select * from list
+;
+select * from lists;
+\q
+select * from lists;
+select * from point;
+select * from points;
+/q
+\q
+select * from lists;
+\q
+select * from lists;
+select * from points;
+\q
+\q
+select * from lists;
+delete from lists;
+\q
+select * from lists
+;
+select * from lists
+;
+delete from lists;
+delete from lists;
+select * from lists
+;
+select * from lists
+;
+select * from lists
+;
+select * from lists
+;
+select * from points
+;
+select * from lists
+;
+reset
+delete from lists;
+reset
+delete from lists;
+delete from lists;
+delete *  from lists;
+select * from points
+;
+select * from lists;
+\q
+ALTER SEQUENCE lists_id_seq RESTART WITH 0
+;
+ALTER SEQUENCE lists_id_seq RESTART WITH 1
+;
+ALTER SEQUENCE lists_id_seq RESTART WITH 1
+;
+select * from lists;
+ALTER SEQUENCE lists_id_seq RESTART WITH 1
+;
+select * from lists;
+select * from lists;
+select * from lists;
+select * from points;
+select * from lists;
+select * from points;
+\q
+create database ar_exercises;
+bundle install
+quit
+\q
+quit
+\q
+\list
+SELECT ar_exercises
+\l
+clear
+\q
+/l
+\l
+postgres
+\q
+select * from postgres
+;
+select * from postgres\q
+\l
+\quit
+\ls
+\l
+\quit
+\l
+select * from ar_exercises;
+select * from ar_exercises;
+\c ar_exercises;
+select * from ar_exercises
+;
+\dt
+select * from burnaby;
+select * from gastown;
+\q
+\l
+\l development
+\l jungle_development
+\l jungle_test
+\l jungle_test
+\l jungle_development
+quit
+\q
+exit
+\e
+\q
+createdb final
+\l
+createdb final
+\s development
