@@ -5,19 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node server",
-    "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server --progress",
-<<<<<<< HEAD
-    "watch": "node ./node_modules/webpack/bin/webpack --watch",
-    "build": "node ./node_modules/webpack/bin/webpack",
-    "production": "NODE_ENV=production node ./node_modules/webpack/bin/webpack -p"
-=======
+    "dev": "webpack-dev-server --progress",
     "watch": "webpack --watch",
     "build": "webpack",
     "production": "NODE_ENV=production webpack -p",
-    "test": "testing",
     "knex": "./node_modules/.bin/knex",
     "migrate": "NODE_ENV=production knex migrate:latest"
->>>>>>> 42768287d78d7910333f801fdd735f9baeccb6df
+
   },
   "author": "Nikolai Gauer",
   "license": "ISC",

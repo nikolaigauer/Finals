@@ -6,18 +6,32 @@
         height: 100%;
         width: 100%;
       }
-      
+
     </style>
   </head>
   <body>
-<<<<<<< HEAD
+
     <div id="map"></div>
     <script>
       function initMap() {
         var uluru = {lat: 49.2831119, lng: -123.1221468};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
-          center: uluru
+          center: uluru,
+          styles: [
+    {
+        "featureType": "all",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": -100
+            },
+            {
+                "gamma": 0.5
+            }
+        ]
+    }
+]
         });
         var marker = new google.maps.Marker({
           position: uluru,
@@ -28,9 +42,5 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0nqbNJan44IZwL91Jjg1BwA2kN4UKW1g&callback=initMap">
     </script>
-=======
-    <h1>dasdasdas</h1>
-    <div id="app"></div>
->>>>>>> 42768287d78d7910333f801fdd735f9baeccb6df
   </body>
 </html>
