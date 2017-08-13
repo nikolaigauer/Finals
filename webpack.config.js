@@ -8,7 +8,8 @@ const paths = {
   app: path.resolve(__dirname, 'client/js'),
   styles: path.resolve(__dirname, 'client/scss'),
   build: path.resolve(__dirname, 'build/'),
-  template: path.resolve(__dirname, 'client/index.html')
+  template: path.resolve(__dirname, 'client/index.html'),
+  migrations: path.resolve(__dirname, 'db/')
 };
 
 const env = process.env.NODE_ENV || 'development';
