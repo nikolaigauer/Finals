@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node server",
-    "dev": "webpack-dev-server --progress",
-    "watch": "webpack --watch",
-    "build": "webpack",
+    "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server --progress",
+    "watch": "node ./node_modules/webpack/bin/webpack --watch",
+    "build": "node ./node_modules/webpack/bin/webpack",
     "production": "NODE_ENV=production webpack -p",
+    "test": "testing",
     "knex": "./node_modules/.bin/knex",
     "migrate": "NODE_ENV=production knex migrate:latest"
 
