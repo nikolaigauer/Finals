@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 const ENV = process.env.NODE_ENV || 'development';
 const knexConfig  = require("../knexfile.js");
 const knex = require("knex")(knexConfig[ENV]);
-const api = require('../routes/translink');
+const api = require('../routes/translink')(knex);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
