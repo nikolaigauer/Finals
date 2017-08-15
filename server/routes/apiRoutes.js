@@ -2,24 +2,16 @@ const express = require('express');
 const router  = express.Router();
 
 function createRoutes(knex) {
-
-
-	router.get('/', function (req, res) {
-    res.render('client/index.html');
+	router.get('/livebusdata', function (req, res) {
+    //res.render('../build/index');
+    knex('live_bus').then(data => res.json(data));
 	});
-  
+
 	router.post('/livebusdata', (req, res) => {
-		console.log("this is req body", req.body)
-		var liveBus = req.body;
-		if (liveBus.length === 0){
-			res.redirect('/')
-		} else {
+		var liveBus = req.body.livebus;
 			knex('live_bus').insert({
 				LiveBus: liveBus
-			}).then((live_bus) => {
-				res.redirect('/');
-			});
-		}
+			})
 	});
 	return router;
 }
