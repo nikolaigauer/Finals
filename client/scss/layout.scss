@@ -1,20 +1,23 @@
-body {
-    overflow-x: hidden;
- }
+html, body, .full-height {
+  height: 100%;
+  width: 100%;
+}
+
 #sidebar-wrapper {
    z-index: 1000;
    position: fixed;
-   left: 250px;
-   width: 350px;
-   height: 200px;
+   float: left;
+   width: 365px;
+   height: 250px;
    top:50px;
-   margin-left: -220px;
+   margin-left: -0px;
    overflow-y: auto;
-   background: #28292a;
+   background: #75b8f8;
    font-family: 'Roboto Condensed', sans-serif;
 }
-#map{
- height: 900px;
+  
+div#app {
+ height: 100%;
  width: 100%;
  position: fixed;
  bottom:0;
@@ -24,6 +27,7 @@ body {
 /* Sidebar Styles */
 
 .sidebar-nav {
+  overflow: hidden;
    position: absolute;
    top: 0;
    width: 350px;
@@ -62,7 +66,8 @@ body {
 }
 
 .sidebar-nav > .sidebar-brand a {
-   color: #999999;
+   color: black;
+   font: bolder;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -77,24 +82,29 @@ body {
 }
 
 input#form-start{
-  padding: 15px;
-  width: 160px;
+  padding: 10px;
+  width: 230px;
+  margin-left: 70px;
+  margin-bottom: 5px;
+  border-radius: 10px;
 }
 input#form-destination{
-  padding: 15px;
-  width: 160px;
+  padding: 10px;
+  width: 230px;
+  margin-left: 70px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+
 }
 div#sidebar-wrapper{
-  border-radius: 15px;
+  border-radius: 0px 12px 12px 0px;
 }
 @media(min-width:768px) {
 
-   #sidebar-wrapper {
-       width: 0;
-   }
-
  #sidebar-wrapper {
-       width: 300px;
+       width: 380px;
+       height: 260px;
+       overflow: hidden;
    }
 
 }

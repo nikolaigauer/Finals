@@ -10,12 +10,14 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     defaultCenter={{ lat: 49.2831119, lng: -123.1221468 }}
     onClick={props.onMapClick}
   >
-    {props.markers.map((marker, index) => (
-      <Marker
+
+     {props.markers.map((marker, index) => ( 
+       <Marker
         {...marker}
         onRightClick={() => props.onMarkerRightClick(index)}
+        onDragEnd={(event) => console.log(event.latLng.lat(), event.latLng.lng())}
       />
-    ))}
+     ))}  
   </GoogleMap>
 ));
 // Then, render it:
