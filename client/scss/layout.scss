@@ -4,16 +4,23 @@ html, body, .full-height {
 }
 
 #sidebar-wrapper {
-   z-index: 1000;
-   position: fixed;
-   float: left;
-   width: 365px;
-   height: 250px;
-   top:50px;
-   margin-left: -0px;
-   overflow-y: auto;
-background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */}
-  
+  z-index: 1000;
+  position: fixed;
+  float: left;
+  width: 365px;
+  height: 250px;
+  top:50px;
+  margin-left: -0px;
+  overflow-y: auto;
+  background: -webkit-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  background: -moz-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  background: -o-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  background: linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */}
+
+div#map-wrapper {
+  height: 100%;
+}
+
 div#app {
  height: 100%;
  width: 100%;

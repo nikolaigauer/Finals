@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          lat: 49.2831119,
+          lat: 49.2831119, 
           lng: -123.1221468
     }
   }
@@ -36,13 +36,13 @@ class App extends React.Component {
 
 
     return (
-      <div>
+      <div id="map-wrapper">
         <GettingStartedGoogleMap
           containerElement={
             <div style={{ height: `100%` }} />
           }
           mapElement={
-            <div style={{ height: `3000px` }} />
+            <div style={{ height: `100%` }} />
           }
           onMapLoad={_.noop}
           onMapClick={(event) => this.handleMarkerDrop(event)}
