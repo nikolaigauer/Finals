@@ -1,59 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title> Sonar </title>
-    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-  </head>
-  <body>
-  <div id="wrapper">
+
+<head>
+  <title> Sonar </title>
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0nqbNJan44IZwL91Jjg1BwA2kN4UKW1g"></script>
+
+</head>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- <div id="wrapper">
     <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">Sonar</a>
-                </li>
-                <li>
-                  <input id="clickMe" type="button" value="clickme" onclick="translink()" />
-                </li>
-                  <li>
-                      <input name="location" id="form-start" placeholder="Starting point" form="form-demo">
-                      </br>
-                  </li>
-                  <li>
-                      <input name="destination" id="form-destination" placeholder="Destination.." form="form-demo">
-                  </li>
-            </ul>
-        </div>
-    <div class="page-content-wrapper">
-        <div id="map" style="position:fixed;"></div>
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a href="#">Sonar</a>
+        </li>
+        <li>
+          <input id="clickMe" type="button" value="clickme" onclick="translink()" />
+        </li>
+        <li>
+          <input name="location" id="form-start" placeholder="Starting point" form="form-demo">
+          </br>
+        </li>
+        <li>
+          <input name="destination" id="form-destination" placeholder="Destination.." form="form-demo">
+        </li>
+      </ul>
     </div>
-  </div>
-    <script>
-      function initMap() {
-        var uluru = {lat: 49.2831119, lng: -123.1221468};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
-          center: uluru,
-          styles: [{
-            "featureType": "all",
-            "elementType": "all",
-            "stylers": [
-              {
-                "saturation": -100
-              },
-              {
-                "gamma": 0.5
-              }
-            ]
-          }]
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0nqbNJan44IZwL91Jjg1BwA2kN4UKW1g&callback=initMap">
-    </script>
-  </body>
+  </div> -->
+
+
+</body>
+
 </html>

@@ -9,7 +9,7 @@
     "prod:build": "NODE_ENV=production node ./node_modules/webpack/bin/webpack -p",
     "prod:server": "NODE_ENV=production node server",
     "test": "testing",
-    "knex": "./node_modules/.bin/knex",
+    "knex": "node ./node_modules/knex/bin/cli",
     "migrate": "NODE_ENV=production knex migrate:latest"
   },
   "author": "Nikolai Gauer",
@@ -34,6 +34,7 @@
     "pg": "^7.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-google-maps": "^7.2.0",
     "request": "^2.81.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",

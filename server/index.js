@@ -21,6 +21,6 @@ app.use('/api', api);
 
 app.listen(3000, () => {
   //setInterval(liveBusData, 5000);
-  liveBusData();
+  // liveBusData();
   console.log(`Server listening on port ${PORT} in ${ENV} mode.`);
 });
