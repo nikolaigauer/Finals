@@ -16,11 +16,14 @@ app.set('view engine', 'html');
 
 const api = require('./routes/apiRoutes')(knex);
 const liveBusData = require('../util/translink')(knex);
+const stops = require('../queries/renderStops.js');
 
+app.use('/markers', stops);
 app.use('/api', api);
+
 
 app.listen(3000, () => {
   //setInterval(liveBusData, 5000);
-  // liveBusData();
+  stops();
   console.log(`Server listening on port ${PORT} in ${ENV} mode.`);
 });
