@@ -9,6 +9,9 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     defaultZoom={14}
     defaultCenter={{ lat: 49.2831119, lng: -123.1221468 }}
     onClick={props.onMapClick}
+    defaultOptions={{
+        styles: require(`../js/MapStyles.json`),
+    }}>
   >
 
      {props.markers.map((marker, index) => ( 
@@ -22,3 +25,4 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
 ));
 // Then, render it:
 export default GettingStartedGoogleMap
+
