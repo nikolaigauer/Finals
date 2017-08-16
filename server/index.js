@@ -8,15 +8,19 @@ const PORT = process.env.PORT || 3000;
 const ENV = process.env.NODE_ENV || 'development';
 const knexConfig  = require("../knexfile.js");
 const knex = require("knex")(knexConfig[ENV]);
-const api = require('../routes/translink');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.static('build'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
-app.use('/api/getbusjson', api);
+const api = require('./routes/apiRoutes')(knex);
+const liveBusData = require('../util/translink')(knex);
+
+app.use('/api', api);
 
 app.listen(3000, () => {
+  //setInterval(liveBusData, 5000);
+  liveBusData();
   console.log(`Server listening on port ${PORT} in ${ENV} mode.`);
 });
