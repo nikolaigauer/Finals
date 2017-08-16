@@ -41,16 +41,6 @@ module.exports = {
           fallback: 'style-loader',
           use: 'css-loader?!sass-loader'
         })
-      },
-      {
-        test: /\.ttf$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'fonts/'
-          }
-        }
       }
     ]
   },
