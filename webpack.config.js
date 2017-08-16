@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -71,6 +72,9 @@ module.exports = {
       aggregateTimeout: 300,
       poll: 1000,
       ignored: /node_modules/
+    },
+    proxy: {
+      "/api": "http://0.0.0.0:3000"
     }
   }
 };
