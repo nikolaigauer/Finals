@@ -11,8 +11,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          lat: 49.2831119,
-          lng: -123.1221468
+          lat: null,
+          lng: null
     }
   }
 
@@ -23,9 +23,11 @@ class App extends React.Component {
       lng: e.latLng.lng()
     })
   }
+
   componentDidMount() {
     this.marker = this.createMarker()
   }
+
   createMarker() {
     const busData = require('../../db/JSON/stops')
     return busData.map((b, i) => {
@@ -36,6 +38,7 @@ class App extends React.Component {
             })
         })
   }
+
   render() {
     const markers = {
      position: {
@@ -46,8 +49,24 @@ class App extends React.Component {
      key: 'Vancouver',
      defaultAnimation: 2,
    }
+
     return (
       <div id="map-wrapper">
+        <div id="sidebar-wrapper">
+          <ul className="sidebar-nav">
+            <li className="sidebar-brand">
+              <label>Sonar</label>
+            </li>
+            <li>
+              <input id="form-start" value={this.state.lat}  />
+              <span className="glyphicon glyphicon-plus"></span>
+            </li>
+            <li>
+              <input id="form-destination"
+              value={this.state.lng}/>
+            </li>
+          </ul>
+        </div>
         <GettingStartedGoogleMap
           containerElement={
             <div style={{ height: `100%` }} />
@@ -56,15 +75,9 @@ class App extends React.Component {
             <div style={{ height: `100%` }} />
           }
           onMapClick={(event) => this.handleMarkerDrop(event)}
-<<<<<<< HEAD
-          markers={[markers], this.createMarker()}
-=======
           markers={[markers]}
-          onMarkerRightClick={() => {}}
->>>>>>> 1b9b3367e8923c9eb31692352f99087f3b33db75
+          // markers={[markers], this.createMarker()}
         />
-        <Formfields/>
-
       </div>
     )
   }

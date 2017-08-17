@@ -11,7 +11,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     defaultOptions={{
         styles: require(`../js/MapStyles.json`),
     }}
-    
+
   >
 
      {props.markers.map((marker, index) => (
@@ -21,10 +21,6 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
         onDragEnd={(event) => console.log(event.latLng.lat(), event.latLng.lng())}
       />
      ))}
-<<<<<<< HEAD
-=======
-     <Formfields/>  
->>>>>>> 1b9b3367e8923c9eb31692352f99087f3b33db75
   </GoogleMap>
 ));
 // Then, render it:
