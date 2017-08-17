@@ -15,7 +15,6 @@ handleLocationSubmit(event) {
   event.preventDefault();
   var location = this.refs.startLocation.value;
   console.log("location", location);
-  // this.setState({ location: '' });
 }
 
 handleDestionSubmit(event) {
@@ -31,17 +30,8 @@ render() {
       <div id="sidebar-wrapper">
         <ul className="sidebar-nav">
           <li className="sidebar-brand">
-            <a href="#">Sonar</a>
+            <a href="#">SONAR</a>
           </li>
-
-          {/* <form onSubmit={this.handleSubmit}>
-              <label>
-                Name:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-              </label>
-              <input type="submit" value="Submit" />
-            </form> */}
-
           <form onSubmit={this.handleLocationSubmit.bind(this)} >
             <li>
               <input
