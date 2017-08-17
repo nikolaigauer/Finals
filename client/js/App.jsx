@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          lat: 49.2831119, 
+          lat: 49.2831119,
           lng: -123.1221468
     }
   }
@@ -21,20 +21,29 @@ class App extends React.Component {
       lng: e.latLng.lng()
     })
   }
-
+  componentDidMount() {
+    this.marker = this.createMarker()
+  }
+  createMarker() {
+    const busData = require('../../db/JSON/stops')
+    return busData.map((b, i) => {
+            return new google.maps.Marker({
+            position: new google.maps.LatLng(b.lat, b.long),
+            key: b.stop_code,
+            draggable: false,
+            })
+        })
+  }
   render() {
-
     const markers = {
-      position: {
-        lat: this.state.lat,
-        lng: this.state.lng
-      },
-      draggable: true,
-      key: 'Vancouver',
-      defaultAnimation: 2,
-    }
-
-
+     position: {
+       lat: this.state.lat,
+       lng: this.state.lng
+     },
+     draggable: true,
+     key: 'Vancouver',
+     defaultAnimation: 2,
+   }
     return (
       <div id="map-wrapper">
         <GettingStartedGoogleMap
@@ -44,15 +53,12 @@ class App extends React.Component {
           mapElement={
             <div style={{ height: `100%` }} />
           }
-          onMapLoad={_.noop}
           onMapClick={(event) => this.handleMarkerDrop(event)}
-          markers={[markers]}
-          onMarkerRightClick={_.noop}
+          markers={[markers], this.createMarker()}
         />
 
       </div>
     )
   }
 }
-
 export default App;

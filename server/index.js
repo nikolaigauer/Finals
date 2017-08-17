@@ -16,7 +16,6 @@ app.set('view engine', 'html');
 
 const api = require('./routes/apiRoutes')(knex);
 const liveBusData = require('../util/translink')(knex);
-const stops = require('../queries/renderStops.js');
 
 app.use('/markers', stops);
 app.use('/api', api);

@@ -14,15 +14,14 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     }}>
   >
 
-     {props.markers.map((marker, index) => ( 
+     {props.markers.map((marker, index) => (
        <Marker
         {...marker}
         onRightClick={() => props.onMarkerRightClick(index)}
         onDragEnd={(event) => console.log(event.latLng.lat(), event.latLng.lng())}
       />
-     ))}  
+     ))}
   </GoogleMap>
 ));
 // Then, render it:
 export default GettingStartedGoogleMap
-
