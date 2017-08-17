@@ -1,35 +1,36 @@
 import React from 'react'
 
-class Formfields extends Component {
+class Formfields extends React.Component {
   constructor(props) {
     super(props);
 
     // initial state
-    this.state = {
-      message: '',
-      username: ''
-    }
+    // this.state = {
+    //   location: 'Location',
+    //   destination: 'Destination'
+    // }
   }
   render() {
     return (
       <div id="wrapper">
         <div id="sidebar-wrapper">
-          <ul class="sidebar-nav">
-            <li class="sidebar-brand">
+          <ul className="sidebar-nav">
+            <li className="sidebar-brand">
               <a href="#">Sonar</a>
             </li>
-            <form className="busroute" method="POST" action="/busroute" >
+            <form className="busroute" method="GET" action="/busroute" >
               <li>
-                <input name="location" id="form-start" placeholder="Starting point" form="form-demo">
+                <input name="location" id="form-start" placeholder="Starting point" form="form-demo"/>
               </li>
               <li>
-                <input name="destination" id="form-destination" placeholder="Destination.." form="form-demo">
+                <input name="destination" id="form-destination" placeholder="Destination.." form="form-demo"/>
               </li>
             </form>
+            />
           </ul>
         </div>
-      </div>  
-      
-  );
-};
+      </div>      
+    );
+  };
+}
 export default Formfields;

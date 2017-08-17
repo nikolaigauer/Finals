@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 // import { Markers } from 'react-google-maps'
 import GettingStartedGoogleMap from "./map.jsx";
+import Formfields from "./formfields.jsx";
+
 import '../scss/application.scss';
 
 class App extends React.Component {
@@ -49,6 +51,7 @@ class App extends React.Component {
           markers={[markers]}
           onMarkerRightClick={() => {}}
         />
+        <Formfields/>
 
       </div>
     )
