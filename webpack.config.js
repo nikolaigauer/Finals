@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const paths = {
   app: path.resolve(__dirname, 'client/js'),
@@ -54,6 +55,9 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'client/images', to: path.join(__dirname, 'build/images') }
     ])
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static'
+    // })
   ],
   devtool: env === 'production' ? 'cheap-source-map' : 'eval-source-map',
   devServer: {

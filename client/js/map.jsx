@@ -1,8 +1,7 @@
 import React from 'react'
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import Formfields from "./formfields.jsx";
 
-// Wrap all `react-google-maps` components with `withGoogleMap` HOC
-// and name it GettingStartedGoogleMap
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
@@ -11,7 +10,8 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     onClick={props.onMapClick}
     defaultOptions={{
         styles: require(`../js/MapStyles.json`),
-    }}>
+    }}
+    
   >
 
      {props.markers.map((marker, index) => (
@@ -21,6 +21,10 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
         onDragEnd={(event) => console.log(event.latLng.lat(), event.latLng.lng())}
       />
      ))}
+<<<<<<< HEAD
+=======
+     <Formfields/>  
+>>>>>>> 1b9b3367e8923c9eb31692352f99087f3b33db75
   </GoogleMap>
 ));
 // Then, render it:

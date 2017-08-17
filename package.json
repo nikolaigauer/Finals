@@ -6,6 +6,7 @@
   "scripts": {
     "dev:server": "node server",
     "dev:client": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server --progress --inline --host 0.0.0.0",
+    "dev:build": "node ./node_modules/webpack/bin/webpack",
     "prod:build": "NODE_ENV=production node ./node_modules/webpack/bin/webpack -p",
     "prod:server": "NODE_ENV=production node server",
     "test": "testing",

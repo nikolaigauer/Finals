@@ -1,4 +1,5 @@
 html, body, .full-height {
+  font-family: 'Archivo Black', sans-serif;
   height: 100%;
   width: 100%;
 }
@@ -66,7 +67,7 @@ div#app {
 
 .sidebar-nav > .sidebar-brand a {
    color: black;
-   font: bolder;
+   font-size: 43px;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -86,6 +87,8 @@ input#form-start{
   margin-left: 70px;
   margin-bottom: 5px;
   border-radius: 10px;
+  font-family: 'Titillium Web', sans-serif;
+
 }
 input#form-destination{
   padding: 10px;
@@ -93,6 +96,7 @@ input#form-destination{
   margin-left: 70px;
   margin-bottom: 5px;
   border-radius: 10px;
+  font-family: 'Titillium Web', sans-serif;
 
 }
 div#sidebar-wrapper{
