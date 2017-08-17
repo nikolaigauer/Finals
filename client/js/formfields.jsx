@@ -10,27 +10,62 @@ class Formfields extends React.Component {
     //   destination: 'Destination'
     // }
   }
-  render() {
-    return (
-      <div id="wrapper">
-        <div id="sidebar-wrapper">
-          <ul className="sidebar-nav">
-            <li className="sidebar-brand">
-              <a href="#">Sonar</a>
+    
+handleLocationSubmit(event) {
+  event.preventDefault();
+  var location = this.refs.startLocation.value;
+  console.log("location", location);
+  // this.setState({ location: '' });
+}
+
+handleDestionSubmit(event) {
+  event.preventDefault();
+  var destination = this.refs.endDestination.value;
+  console.log("destination", destination);
+  this.setState({ name: event.target.value })
+  
+ }
+render() {
+  return (
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul className="sidebar-nav">
+          <li className="sidebar-brand">
+            <a href="#">Sonar</a>
+          </li>
+
+          {/* <form onSubmit={this.handleSubmit}>
+              <label>
+                Name:
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+              </label>
+              <input type="submit" value="Submit" />
+            </form> */}
+
+          <form onSubmit={this.handleLocationSubmit.bind(this)} >
+            <li>
+              <input
+                className="location"
+                id="form-start"
+                placeholder="Starting point"
+                ref="startLocation"
+              />
             </li>
-            <form className="busroute" method="GET" action="/busroute" >
-              <li>
-                <input name="location" id="form-start" placeholder="Starting point" form="form-demo"/>
-              </li>
-              <li>
-                <input name="destination" id="form-destination" placeholder="Destination.." form="form-demo"/>
-              </li>
-            </form>
-            />
-          </ul>
-        </div>
-      </div>      
-    );
-  };
+          </form>
+          <form onSubmit={this.handleDestionSubmit.bind(this)} >
+            <li>
+              <input
+                className="destination"
+                id="form-destination"
+                placeholder="Destination.."
+                ref="endDestination"
+              />
+            </li>
+          </form>
+        </ul>
+      </div>
+    </div>
+  );
+};
 }
 export default Formfields;
