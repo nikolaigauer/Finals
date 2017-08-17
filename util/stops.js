@@ -6,7 +6,7 @@ const express = require("express");
 function createRouter(knex) {
   const router = express.Router();
 
-  router.get("/marker", (req, res) => {
+  router.get("/stops", (req, res) => {
     knex('stops') 
     .then((resultArray) => {
         let listOfMarkers = [];

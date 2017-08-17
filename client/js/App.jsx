@@ -47,7 +47,7 @@ class App extends React.Component {
           onMapLoad={_.noop}
           onMapClick={(event) => this.handleMarkerDrop(event)}
           markers={[markers]}
-          onMarkerRightClick={_.noop}
+          onMarkerRightClick={() => {}}
         />
 
       </div>

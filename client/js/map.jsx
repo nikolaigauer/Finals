@@ -1,8 +1,6 @@
 import React from 'react'
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 
-// Wrap all `react-google-maps` components with `withGoogleMap` HOC
-// and name it GettingStartedGoogleMap
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
