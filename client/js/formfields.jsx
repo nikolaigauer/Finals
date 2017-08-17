@@ -5,10 +5,10 @@ class Formfields extends React.Component {
     super(props);
 
     // initial state
-    // this.state = {
-    //   location: 'Location',
-    //   destination: 'Destination'
-    // }
+    this.state = {
+      location: '',
+      destination: ''
+    }
   }
     
 handleLocationSubmit(event) {
@@ -21,7 +21,6 @@ handleDestionSubmit(event) {
   event.preventDefault();
   var destination = this.refs.endDestination.value;
   console.log("destination", destination);
-  this.setState({ name: event.target.value })
   
  }
 render() {
