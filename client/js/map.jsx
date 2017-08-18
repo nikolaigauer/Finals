@@ -1,5 +1,4 @@
 import React from 'react';
-import Ripples from 'react-ripples';
 import { withGoogleMap, GoogleMap, Marker, Circle } from "react-google-maps";
 
 const GettingStartedGoogleMap = withGoogleMap(props => (

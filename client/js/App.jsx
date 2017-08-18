@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Ripples from 'react-ripples';
 import _ from 'lodash';
 // import { Markers } from 'react-google-maps'
 import GettingStartedGoogleMap from "./map.jsx";
