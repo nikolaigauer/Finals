@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-// import { GoogleMap, Marker } from "react-google-maps";
+import Ripples from 'react-ripples';
 import _ from 'lodash';
 // import { Markers } from 'react-google-maps'
 import GettingStartedGoogleMap from "./map.jsx";
-import Formfields from "./formfields.jsx";
 
 import '../scss/application.scss';
 
@@ -11,8 +10,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          lat: 49.2831119, 
-          lng: -123.1221468
+      lat: 49.2831119,
+      lng: -123.1221468
     }
   }
 
@@ -33,12 +32,12 @@ class App extends React.Component {
           lat: this.state.lat,
           lng: this.state.lng
         },
-        draggable: true,
+        draggable: false,
         key: 'Vancouver',
         defaultAnimation: 2,
       }
     ];
-    
+
     return (
       <div id="map-wrapper">
         <GettingStartedGoogleMap
@@ -51,10 +50,10 @@ class App extends React.Component {
           onMapLoad={_.noop}
           onMapClick={(event) => this.handleMarkerDrop(event)}
           markers={markers}
-          onMarkerRightClick={() => {}}
+          onMarkerRightClick={() => {console.log("HELLO") }}
+          onMarkerClick={() => { console.log("YO") }}
         />
-        <Formfields/>
-
+        
       </div>
     )
   }
