@@ -12,37 +12,33 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
       disableDefaultUI: true,
       styles: require(`../js/MapStyles.json`),
     }}
-
   >
 
+    {props.circles.map((circle, index) => (
+      <Circle
+        key={circle.key}
+        clickable={false}
+        center={circle.position}
+        radius={circle.radius}
+        options={{
+          fillColor: "black",
+          fillOpacity: 0,
+          strokeColor: "black",
+          strokeOpacity: circle.opacity,
+          strokeWeight: 5,
+        }}
+      />
+    ))}
 
     {props.markers.map((marker, index) => (
-      <div className="marker-and-circle" key="div-time">
         <Marker
           {...marker}
-          key="marker"
           onClick={() => props.onMarkerClick(index)}
           onRightClick={() => props.onMarkerRightClick(index)}
           onDragEnd={(event) => console.log(event.latLng.lat(), event.latLng.lng())}
         />
-        <Ripples>
-        <Circle
-          id="circle"
-          key="circle"
-          clickable={false}
-          center={marker.position}
-          radius={500}
-          options={{
-            fillColor: `#F4FF52`,
-            fillOpacity: 0,
-            strokeColor: `black`,
-            strokeOpacity: 0.15,
-            strokeWeight: 2,
-          }}
-        />
-        </Ripples>
-      </div>
-    ))}
+    ))
+    }
   </GoogleMap>
 ));
 
