@@ -26,7 +26,7 @@ handleDestionSubmit(event) {
 render() {
   return (
     <div id="wrapper">
-      <div id="sidebar-wrapper">
+      {/* <div id="sidebar-wrapper">
         <ul className="sidebar-nav">
           <li className="sidebar-brand">
             <a href="#">SONAR</a>
@@ -52,7 +52,7 @@ render() {
             </li>
           </form>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };

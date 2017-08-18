@@ -7,6 +7,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     ref={props.onMapLoad}
     defaultZoom={14}
     defaultCenter={{ lat: 49.28319989, lng: -123.1221468 }}
+    defaultDisableDefaultUI={true}
     onClick={props.onMapClick}
     defaultOptions={{
         styles: require(`../js/MapStyles.json`),
