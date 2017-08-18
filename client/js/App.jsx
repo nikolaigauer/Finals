@@ -24,19 +24,21 @@ class App extends React.Component {
     })
   }
 
+
   render() {
 
-    const markers = {
-      position: {
-        lat: this.state.lat,
-        lng: this.state.lng
-      },
-      draggable: true,
-      key: 'Vancouver',
-      defaultAnimation: 2,
-    }
-
-
+    const markers = [
+      {
+        position: {
+          lat: this.state.lat,
+          lng: this.state.lng
+        },
+        draggable: true,
+        key: 'Vancouver',
+        defaultAnimation: 2,
+      }
+    ];
+    
     return (
       <div id="map-wrapper">
         <GettingStartedGoogleMap
@@ -48,7 +50,7 @@ class App extends React.Component {
           }
           onMapLoad={_.noop}
           onMapClick={(event) => this.handleMarkerDrop(event)}
-          markers={[markers]}
+          markers={markers}
           onMarkerRightClick={() => {}}
         />
         <Formfields/>
