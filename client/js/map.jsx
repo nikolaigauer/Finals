@@ -29,14 +29,14 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
         <Circle
           id="circle"
           key="circle"
-          onClick={() => ()}
+          clickable={false}
           center={marker.position}
           radius={500}
           options={{
             fillColor: `#F4FF52`,
             fillOpacity: 0,
             strokeColor: `black`,
-            strokeOpacity: 1,
+            strokeOpacity: 0.15,
             strokeWeight: 2,
           }}
         />

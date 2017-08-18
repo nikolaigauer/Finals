@@ -51,7 +51,7 @@ class App extends React.Component {
           onMapClick={(event) => this.handleMarkerDrop(event)}
           markers={markers}
           onMarkerRightClick={() => {console.log("HELLO") }}
-          onMarkerClick={() => { console.log("YO") }}
+          onMarkerClick={() => { console.log("THIS IS THE QUERY") }}
         />
         
       </div>
