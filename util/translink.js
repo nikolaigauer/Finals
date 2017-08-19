@@ -2,7 +2,7 @@ const request = require("request");
 
 module.exports = knex => {
 	return () => {
-		var apiGet = "http://api.translink.ca/rttiapi/v1/buses?apikey=GMPEN4nbnZxrUBYQYkVh";
+		var apiGet = "http://api.translink.ca/rttiapi/v1/buses?apikey=iLKjRZhiqjH0r0claiVf";
 		request({
 			url: apiGet,
 			method: "GET",

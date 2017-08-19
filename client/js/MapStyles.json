@@ -1,10 +1,10 @@
         module.exports = [{
           "stylers": [
             {
-              "saturation": -100
+              "saturation": -80
             },
             {
-              "gamma": 5
+              "gamma": 0.5
             },
             {
               "hue": 0
@@ -28,7 +28,7 @@
             "featureType": "road",
             "elementType": "labels",
             "stylers": [
-              { "visibility": "off" }
+              { "visibility": "on" }
             ]
           },
           {

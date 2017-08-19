@@ -9,6 +9,7 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     onClick={props.onMapClick}
     defaultOptions={{
       disableDefaultUI: true,
+      zoomControl: true,
       styles: require(`../js/MapStyles.json`),
     }}
   >
@@ -22,9 +23,9 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
         options={{
           fillColor: "black",
           fillOpacity: 0,
-          strokeColor: "black",
+          strokeColor: "#FFFC29",
           strokeOpacity: circle.opacity,
-          strokeWeight: 5,
+          strokeWeight: 10,
         }}
       />
     ))}
@@ -42,4 +43,3 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
 ));
 
 export default GettingStartedGoogleMap
-

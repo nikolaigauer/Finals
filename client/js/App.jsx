@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import Request from 'react-http-request';
 import _ from 'lodash';
 // import { Markers } from 'react-google-maps'
 import GettingStartedGoogleMap from "./map.jsx";
-
+import stops from '../../server/db/json/stops.js';
 import '../scss/application.scss';
+
+function getBusStopMarkers(stops) {
+  return stops.map((stop) => {
+    return createMarker(stop.lat, stop.long)
+  });
+}
 
 function createMarker(lat, lng) {
   return {
@@ -16,7 +23,6 @@ function createMarker(lat, lng) {
     defaultAnimation: 2,
   }
 }
-
 function createCircle(lat, lng) {
   return {
     position: {
@@ -37,7 +43,8 @@ class App extends React.Component {
       lng: -123.1221468,
       circles: [],
       markers: [
-        createMarker(49.2831119, -123.1221468)
+        createMarker(49.2831119, -123.1221468),
+        ...getBusStopMarkers(stops.slice(0, 1))
       ]
     }
     this.currentPosition = 0
@@ -53,7 +60,7 @@ class App extends React.Component {
       lat: lat,
       lng: lng,
     }
-    
+
     const newCircles = this.state.circles.concat(createCircle(lat, lng))
 
     this.setState({
@@ -73,10 +80,12 @@ class App extends React.Component {
   tick() {
     let newCircles = this.state.circles
     newCircles.forEach(circle => {
-      circle.radius += 500/60
-      circle.opacity -= 1/60
+      circle.radius += 500 / 40
+      circle.opacity -= 1 / 40
     })
+
     newCircles = newCircles.filter(circle => circle.opacity > 0)
+
     this.setState({
       circles: newCircles
     }, () => {
@@ -89,6 +98,7 @@ class App extends React.Component {
 
 
   render() {
+    //  const url = `http://localhost:3000/get_buses_in_proximity?lat=${this.state.lat}&lng= ${this.state.lng}`;
     return (
       <div id="map-wrapper">
         <GettingStartedGoogleMap
@@ -105,6 +115,22 @@ class App extends React.Component {
           onMarkerRightClick={() => { console.log("HELLO") }}
           onMarkerClick={() => { console.log("THIS IS THE QUERY") }}
         />
+        {/* <Request
+         url={ url }
+         method='get'
+         accept='application/json'
+         verbose={true}
+       >
+       {
+         ({error, result, loading}) => {
+           if (loading) {
+             return <div></div>;
+           } else {
+             return <div>{ JSON.stringify(result) }</div>;
+           }
+         }
+       }
+     </Request> */}
       </div>
     )
   }
