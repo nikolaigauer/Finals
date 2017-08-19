@@ -1,110 +1,137 @@
 import React, { Component } from 'react';
-// import { GoogleMap, Marker } from "react-google-maps";
+import Request from 'react-http-request';
 import _ from 'lodash';
 // import { Markers } from 'react-google-maps'
 import GettingStartedGoogleMap from "./map.jsx";
-// import styles
+import stops from '../../server/db/json/stops.js';
 import '../scss/application.scss';
-import Request from 'react-http-request';
+
+function getBusStopMarkers(stops) {
+  return stops.map((stop) => {
+    return createMarker(stop.lat, stop.long)
+  });
+}
+
+function createMarker(lat, lng) {
+ return {
+   position: {
+     lat: lat,
+     lng: lng,
+   },
+   draggable: false,
+   key: Math.random(),
+   defaultAnimation: 2,
+ }
+}
+function createCircle(lat, lng) {
+ return {
+   position: {
+     lat: lat,
+     lng: lng,
+   },
+   key: Math.random(),
+   opacity: 1,
+   radius: 0
+ }
+}
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-          lat: '',
-          lng: ''
-    }
-  }
+ constructor(props) {
+   super(props);
+   this.state = {
+     lat: 49.2831119,
+     lng: -123.1221468,
+     circles: [],
+     markers: [
+       createMarker(49.2831119, -123.1221468),
+       ...getBusStopMarkers(stops.slice(0,1))
+     ]
+   }
+   this.currentPosition = 0
+ }
 
-  handleMarkerDrop(e) {
-    console.log(e.latLng.lat(), e.latLng.lng())
+ handleMarkerDrop(e) {
+   console.log(e.latLng.lat(), e.latLng.lng())
+   const lat = e.latLng.lat()
+   const lng = e.latLng.lng()
 
-    this.setState({
-      lat: e.latLng.lat(),
-      lng: e.latLng.lng()
-    })
+   const newMarkers = this.state.markers;
+   newMarkers[this.currentPosition].position = {
+     lat: lat,
+     lng: lng,
+   }
 
-  }
+   const newCircles = this.state.circles.concat(createCircle(lat, lng))
 
-  componentDidMount() {
-    this.marker = this.createMarker()
-  }
+   this.setState({
+     circles: newCircles,
+     markers: newMarkers,
+     lat: lat,
+     lng: lng,
+   }, this.startAnimation.bind(this))
+ }
 
-  createMarker() {
-    const busData = require('../../server/db/JSON/stops')
-    return busData.map((b, i) => {
-            return new google.maps.Marker({
-            position: new google.maps.LatLng(b.lat, b.long),
-            key: b.stop_code,
-            draggable: false,
-            // icon: '../../images/503.png'
-            })
-        })
-  }
+ startAnimation() {
+   if (this.animating) return;
+   this.animating = true;
+   this.tick();
+ }
 
-  render() {
+ tick() {
+   let newCircles = this.state.circles
+   newCircles.forEach(circle => {
+     circle.radius += 500/60
+     circle.opacity -= 1/60
+   })
+   newCircles = newCircles.filter(circle => circle.opacity > 0)
+   this.setState({
+     circles: newCircles
+   }, () => {
+     this.animating = newCircles.length > 0
+     if (this.animating) {
+       requestAnimationFrame(this.tick.bind(this))
+     }
+   })
+ }
 
-    const markers = {
-     position: {
-       lat: this.state.lat,
-       lng: this.state.lng
-     },
-     draggable: true,
-     key: 'Vancouver',
-     defaultAnimation: 2,
-     icon: '../../images/503.png'
-    }
 
-  const url = `http://localhost:3000/get_buses_in_proximity?lat=${this.state.lat}&lng= ${this.state.lng}`;
-    return (
-
-      <div id="map-wrapper">
-        <div id="sidebar-wrapper">
-          <ul className="sidebar-nav">
-            <li className="sidebar-brand">
-              <label>Sonar</label>
-            </li>
-            <form onSubmit={this.onSubmit}>
-            <li>
-              <input id="form-start" value={this.state.lat}/>
-              <span className="glyphicon glyphicon-plus"></span>
-            </li>
-            <li>
-              <input id="form-destination"
-              value={this.state.lng}/>
-            </li>
-            </form>
-          </ul>
-        </div>
-        <GettingStartedGoogleMap
-          containerElement={
-            <div style={{ height: `100%` }} />
-          }
-          mapElement={
-            <div style={{ height: `100%` }} />
-          }
-          onMapClick={(event) => this.handleMarkerDrop(event)}
-          markers={[markers]}
-          // markers={[markers], this.createMarker()}
-        />
-        <Request
-          url={ url }
-          method='get'
-          accept='application/json'
-          verbose={true}
-        >
-        {
-          ({error, result, loading}) => {
-            if (loading) {
-              return <div></div>;
-            } else {
-              return <div>{ JSON.stringify(result) }</div>;
-            }
-          }
-        }
-      </Request>
-      </div>
-    )
-  }
+ render() {
+   const url = `http://localhost:3000/get_buses_in_proximity?lat=${this.state.lat}&lng= ${this.state.lng}`;
+   return (
+     <div id="map-wrapper">
+       <GettingStartedGoogleMap
+         containerElement={
+           <div style={{ height: "100%" }} />
+         }
+         mapElement={
+           <div style={{ height: "100%" }} />
+         }
+         onMapLoad={_.noop}
+         onMapClick={(event) => this.handleMarkerDrop(event)}
+         circles={this.state.circles}
+         markers={this.state.markers}
+         onMarkerRightClick={() => { console.log("HELLO") }}
+         onMarkerClick={() => { console.log("THIS IS THE QUERY") }}
+       />
+       <Request
+         url={ url }
+         method='get'
+         accept='application/json'
+         verbose={true}
+       >
+       {
+         ({error, result, loading}) => {
+           if (loading) {
+             return <div></div>;
+           } else {
+             return <div>{ JSON.stringify(result) }</div>;
+           }
+         }
+       }
+     </Request>
+     </div>
+   )
+ }
 }
+
 export default App;

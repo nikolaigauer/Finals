@@ -26,41 +26,42 @@ app.set('view engine', 'html');
 // app.use('/api', api);
 // app.use('/api', cordinates);
 
-const getStopNumbers = ({ rows }) => rows.map(r => r.stop_number);
+  const getStopNumbers = ({ rows }) => rows.map(r => r.stop_number);
 
 const getLiveBusLocations = busIds => {
   console.log('bus id arrray', busIds);
-  var apiGet = "http://api.translink.ca/rttiapi/v1/buses?apikey=GMPEN4nbnZxrUBYQYkVh";
-  request({
+  console.log('this is bus id with an index of 0:',busIds[0])
+
+  var apiGet = `http://api.translink.ca/rttiapi/v1/stops/${busIds[1]}/estimates?apikey=iLKjRZhiqjH0r0claiVf&count=3&timeframe=120`;
+  return request({
     url: apiGet,
     method: "GET",
     timeout: 3000,
     headers: {
         Accept:'application/JSON'
     }
-  }).then(console.log)
+  })
+
 }
 
 app.get('/get_buses_in_proximity', (req, res) =>{
   const { lat, lng } = req.query;
   console.log('lat', lat);
   console.log('lng', lng);
-
-
-  // TODO - use ?,? to escape the params
-  // cuz sql injection is sucky
   const sqlQuery = `SELECT *
     FROM bus_stops
     WHERE ST_DWithin( Geography(ST_MakePoint(CAST(lat as float),
           CAST(long as float))),
-          Geography(ST_MakePoint(49.27887861484944, -123.12371492385864)),
-          1 * 100);`
+          Geography(ST_MakePoint(${lat}, ${lng})),
+          150);`
 
   knex.raw(sqlQuery)
       .then(getStopNumbers)
-      .then(getLiveBusLocations);
-  // knex('bus_stops').where('id', 1).then(console.log);
-  res.json('yippy!!!');
+      .then(getLiveBusLocations)
+      .then(function (busIds) {
+        console.log(busIds)
+        res.json(busIds)
+      })
 })
 
 
