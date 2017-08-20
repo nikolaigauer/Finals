@@ -11,12 +11,14 @@ html, body, .full-height {
   width: 365px;
   height: 250px;
   top:50px;
-  margin-left: -0px;
+  margin-left: 30px;
   overflow-y: auto;
-  background: -webkit-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
-  background: -moz-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
-  background: -o-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
-  background: linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */}
+  font-size: 2em;
+  // background: -webkit-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  // background: -moz-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  // background: -o-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  // background: linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
 
 div#map-wrapper {
   height: 100%;
@@ -105,8 +107,8 @@ div#sidebar-wrapper{
 @media(min-width:768px) {
 
  #sidebar-wrapper {
-       width: 380px;
-       height: 260px;
+       width: 170px;
+       height: 140px;
        overflow: hidden;
    }
 

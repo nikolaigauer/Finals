@@ -12,15 +12,17 @@ function getBusStopMarkers(stops) {
   });
 }
 
-function createMarker(lat, lng) {
+function createMarker(lat, lng, stopId) {
   return {
     position: {
       lat: lat,
       lng: lng,
     },
+    stopId: stopId,
     draggable: false,
     key: Math.random(),
     defaultAnimation: 2,
+    showInfo: false,
   }
 }
 function createCircle(lat, lng) {
@@ -42,6 +44,7 @@ class App extends React.Component {
       lat: 49.2831119,
       lng: -123.1221468,
       circles: [],
+      showInfo: false,
       markers: [
         createMarker(49.2831119, -123.1221468),
         ...getBusStopMarkers(stops.slice(0, 1))
@@ -55,20 +58,30 @@ class App extends React.Component {
     const lat = e.latLng.lat()
     const lng = e.latLng.lng()
 
-    const newMarkers = this.state.markers;
-    newMarkers[this.currentPosition].position = {
-      lat: lat,
-      lng: lng,
-    }
+    fetch(`http://localhost:3000/get_buses_in_proximity?lat=${lat}&lng=${lng}`)
+      .then(response => response.json())
+      .then((data)=> {
+        let location = this.state.markers[this.state.currentPosition];
+        // location.position.lat = lat
+        // location.position.lng = lng
+        console.log(data)
+        let stops = data.map(stop => {
+          return createMarker(parseFloat(stop.lat), parseFloat(stop.lng), parseInt(stop.stop));
+        })
 
-    const newCircles = this.state.circles.concat(createCircle(lat, lng))
+      let newMarkers = [
+        location,
+        ...stops
+      ]
+      const newCircles = this.state.circles.concat(createCircle(lat, lng))
 
-    this.setState({
-      circles: newCircles,
-      markers: newMarkers,
-      lat: lat,
-      lng: lng,
-    }, this.startAnimation.bind(this))
+      this.setState({
+        circles: newCircles,
+        markers: newMarkers,
+        lat: lat,
+        lng: lng,
+      }, this.startAnimation.bind(this))
+    })
   }
 
   startAnimation() {
@@ -79,15 +92,21 @@ class App extends React.Component {
 
   tick() {
     let newCircles = this.state.circles
+    let secondCircle = this.state.circles
     newCircles.forEach(circle => {
       circle.radius += 500 / 40
       circle.opacity -= 1 / 40
     })
+    // secondCircle.forEach(circle => {
+    //   circle.radius += 250 / 80
+    //   circle.opacity -= 1 / 80
+    // })
 
     newCircles = newCircles.filter(circle => circle.opacity > 0)
+    secondCircle = secondCircle.filter(circle => circle.opacity > 0)
 
     this.setState({
-      circles: newCircles
+      circles: newCircles, secondCircle
     }, () => {
       this.animating = newCircles.length > 0
       if (this.animating) {
@@ -95,10 +114,21 @@ class App extends React.Component {
       }
     })
   }
+    // this.setState({
+    //   circles: secondCircle
+    // }, () => {
+    //   this.animating = secondCircle.length > 0
+    //   if (this.animating) {
+    //     requestAnimationFrame(this.tick.bind(this))
+    //   }
+    // })
+  stopClickHandler() {
+    this.setState({showInfo: false})
+  };
 
 
   render() {
-    //  const url = `http://localhost:3000/get_buses_in_proximity?lat=${this.state.lat}&lng= ${this.state.lng}`;
+     const url = `http://localhost:3000/get_buses_in_proximity?lat=${this.state.lat}&lng= ${this.state.lng}`;
     return (
       <div id="map-wrapper">
         <GettingStartedGoogleMap
@@ -113,24 +143,8 @@ class App extends React.Component {
           circles={this.state.circles}
           markers={this.state.markers}
           onMarkerRightClick={() => { console.log("HELLO") }}
-          onMarkerClick={() => { console.log("THIS IS THE QUERY") }}
+          onMarkerClick={() => { this.stopClickHandler() }}
         />
-        {/* <Request
-         url={ url }
-         method='get'
-         accept='application/json'
-         verbose={true}
-       >
-       {
-         ({error, result, loading}) => {
-           if (loading) {
-             return <div></div>;
-           } else {
-             return <div>{ JSON.stringify(result) }</div>;
-           }
-         }
-       }
-     </Request> */}
       </div>
     )
   }

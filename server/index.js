@@ -20,32 +20,41 @@ app.set('view engine', 'html');
 
 
 
-// const api = require('./routes/apiRoutes')(knex);
-// const liveBusData = require('../util/translink')(knex);
-// // const cordinates = require('./routes/UserCordinates')(knex);
-// app.use('/api', api);
-// app.use('/api', cordinates);
+const api = require('./routes/apiRoutes')(knex);
+const liveBusData = require('../util/translink')(knex);
+const cordinates = require('./routes/UserCordinates')(knex);
+app.use('/api', api);
+app.use('/api', cordinates);
 
-  const getStopNumbers = ({ rows }) => rows.map(r => r.stop_number);
+const getStopNumbers = ({ rows }) => rows.map(r => {
+    return {
+      stop: r.stop_number, 
+      lat: r.lat, 
+      lng: r.long
+    }
+  });
 
-// const getLiveBusLocations = busIds => {
-//   console.log('bus id arrray', busIds);
-//   console.log('this is bus id with an index of 0:',busIds[0])
+const getLiveBusLocations = busIds => {
+  console.log('bus id arrray', busIds);
+  const testStop = parseInt(busIds[0])
+  console.log('this is bus id with an index of 0:', testStop)
 
-//   var apiGet = `http://api.translink.ca/rttiapi/v1/stops/${busIds[1]}/estimates?apikey=iLKjRZhiqjH0r0claiVf&count=3&timeframe=120`;
-//   return request({
-//     url: apiGet,
-//     method: "GET",
-//     timeout: 3000,
-//     headers: {
-//         Accept:'application/JSON'
-//     }
-//   })
-
-// }
+  var apiGet = `http://api.translink.ca/rttiapi/v1/stops/${testStop}/estimates?apikey=iLKjRZhiqjH0r0claiVf&count=3&timeframe=60`;
+  return request({
+    url: apiGet,
+    method: "GET",
+    timeout: 3000,
+    headers: {
+        Accept:'application/JSON'
+    }
+  })
+}
 
 app.get('/get_buses_in_proximity', (req, res) =>{
   const { lat, lng } = req.query;
+  // const lat = 49.27766072946756
+  // const lng = -123.11262130737305
+
   console.log('lat', lat);
   console.log('lng', lng);
   const sqlQuery = `SELECT *
@@ -57,16 +66,30 @@ app.get('/get_buses_in_proximity', (req, res) =>{
 
   knex.raw(sqlQuery)
       .then(getStopNumbers)
-      .then(getLiveBusLocations)
-      .then(function (busIds) {
-        console.log(busIds)
-        res.json(busIds)
+      .then(function (stops){
+        res.json(stops)
       })
-})
+//       // // .then(getLiveBusLocations)
+//       // .then(function (busIds) {
+//       //   console.log(busIds)
+//       //   res.json(JSON.parse(busIds))
+//       // })
+  })
 
+	// app.get('/livebusdata', (req, res) => {
+	// 	const lat = req.body.params.lat
+	// 	const lng = req.body.params.lng
+	// 	const data = knex.raw(`SELECT * FROM bus_stops
+  //     WHERE ST_DWithin(
+  //       Geography(ST_MakePoint(CAST(lat as float), CAST(long as float))),
+  //       Geography(ST_MakePoint(?, ?)),
+  //       1 * 350
+	//   );`, [lat, lng])
+  //   .then(data => res.json(data));
+	// })
 
-// app.listen(3000, () => {
-//   // setInterval(liveBusData, 5000);
-//   // liveBusData()
-//   console.log(`Server listening on port ${PORT} in ${ENV} mode.`);
-// });
+app.listen(3000, () => {
+// setInterval(liveBusData, 5000);
+// liveBusData()
+  console.log(`Server listening on port ${PORT} in ${ENV} mode.`);
+}); 
