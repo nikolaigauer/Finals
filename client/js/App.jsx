@@ -117,7 +117,6 @@ class App extends React.Component {
       if (marker.stopId === clickedMarker.stopId) { 
         const newMarkers = [...this.state.markers];
 
-
         fetch(`http://localhost:3000/busStopRoutes?stopId=${marker.stopId}`)
           .then(response => response.json())
           .then((data) => {    
@@ -133,7 +132,6 @@ class App extends React.Component {
       }
     })
   };
-
 
   render() {
     const url = `http://localhost:3000/get_buses_in_proximity?lat=${this.state.lat}&lng=${this.state.lng}`;

@@ -14,7 +14,7 @@ const Map = withGoogleMap(props => (
     }}
   >
 
-    {props.circles.map((circle, index) => (
+    {props.circles.map((circle, index) => {
       <Circle
         key={circle.key}
         clickable={false}
@@ -28,38 +28,38 @@ const Map = withGoogleMap(props => (
           strokeWeight: 10,
         }}
       />
-    ))}
+    })}
 
-    {
-      props.markers.map((marker, index) => {
-        let stopInfo = ""
-          
-          if (marker.info !== undefined && marker.info.length > 0) {
-            stopInfo = marker.info.map(route => {
-              //need these route numbers to show up some how
-              return <div key={route.routeNo}>{route.routeNo}</div>
-            })
-            console.log(stopInfo)
-          } 
-        
-        return <Marker
-          {...marker}
-          options={{
-            icon: {
-              url: "https://d30y9cdsu7xlg0.cloudfront.net/png/29388-200.png",
-              scaledSize: new google.maps.Size(50, 50)
-            }
-          }}
-          onClick={() => props.onMarkerClick(marker)}
-          onRightClick={() => props.onMarkerRightClick(index)}
-        >
-          {marker.showInfo && (
-            <InfoWindow onCloseClick={() => console.log("WHATEVER")}>
-              <div>{stopInfo}</div>
-            </InfoWindow>
-          )}
-        </Marker>
-      })
+    {props.markers.map((marker, index) => {
+
+      let stopInfo = ""
+      if (marker.info !== undefined && marker.info.length > 0) {
+        stopInfo = marker.info.map(route => {
+          console.log(route)
+          //need these route numbers to show up some how
+          return <div key={route.RouteNo}>{route.RouteNo}</div>
+        })
+        console.log("stopInfo:", stopInfo)
+      }
+
+      return <Marker
+        {...marker}
+        options={{
+          icon: {
+            url: "https://d30y9cdsu7xlg0.cloudfront.net/png/29388-200.png",
+            scaledSize: new google.maps.Size(50, 50)
+          }
+        }}
+        onClick={() => props.onMarkerClick(marker)}
+        onRightClick={() => props.onMarkerRightClick(index)}
+      >
+        {marker.showInfo && (
+          <InfoWindow onCloseClick={() => console.log("WHATEVER")}>
+            <div>{stopInfo}</div>
+          </InfoWindow>
+        )}
+      </Marker>
+    })
     }
   </GoogleMap>
 ));
