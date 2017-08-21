@@ -129,8 +129,9 @@ module.exports = [
         "featureType": "road.highway",
         "elementType": "geometry.fill",
         "stylers": [
-            {
-                "visibility": "off"
+            {   
+                "visibility": "on",
+                "color": "white"
             }
         ]
     },
@@ -139,7 +140,8 @@ module.exports = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "visibility": "off"
+                "visibility": "on",
+                "color": "white"
             }
         ]
     },

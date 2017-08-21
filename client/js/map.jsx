@@ -1,10 +1,10 @@
 import React from 'react';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from "react-google-maps";
 
-const GettingStartedGoogleMap = withGoogleMap(props => (
+const Map = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={15}
+    defaultZoom={17}
     defaultCenter={{ lat: 49.28319989, lng: -123.1221468 }}
     onClick={props.onMapClick}
     defaultOptions={{
@@ -30,26 +30,38 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
       />
     ))}
 
-    {props.markers.map((marker, index) => (
-        console.log(marker),
-        <Marker
+    {
+      props.markers.map((marker, index) => {
+        let stopInfo = ""
+          
+          if (marker.info !== undefined && marker.info.length > 0) {
+            stopInfo = marker.info.map(route => {
+              //need these route numbers to show up some how
+              return <div key={route.routeNo}>{route.routeNo}</div>
+            })
+            console.log(stopInfo)
+          } 
+        
+        return <Marker
           {...marker}
-          options={{ icon: {  url: "https://d30y9cdsu7xlg0.cloudfront.net/png/29388-200.png", 
-                              scaledSize: new google.maps.Size(50, 50) }}}
-          onClick={() => props.onMarkerClick(index)}
+          options={{
+            icon: {
+              url: "https://d30y9cdsu7xlg0.cloudfront.net/png/29388-200.png",
+              scaledSize: new google.maps.Size(50, 50)
+            }
+          }}
+          onClick={() => props.onMarkerClick(marker)}
           onRightClick={() => props.onMarkerRightClick(index)}
-          onDragEnd={(event) => console.log(event.latLng.lat(), event.latLng.lng())}
         >
-          {/* {marker.showInfo && (
+          {marker.showInfo && (
             <InfoWindow onCloseClick={() => console.log("WHATEVER")}>
-              <div>YOOOOOOOOO</div>
+              <div>{stopInfo}</div>
             </InfoWindow>
-          )} */}
-
+          )}
         </Marker>
-    ))
+      })
     }
   </GoogleMap>
 ));
 
-export default GettingStartedGoogleMap
+export default Map
