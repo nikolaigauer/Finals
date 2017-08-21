@@ -34,6 +34,26 @@ const getStopNumbers = ({ rows }) => rows.map(r => {
   }
 });
 
+const getBusCords = ({ rows }) => rows.map(r => {
+  return {
+    lat: r.Latitude,
+    lng: r.Longit
+  }
+});
+
+const getLiveBusCoord = stopNo => {
+  var liveBusApi = `http://api.translink.ca/rttiapi/v1/buses?apikey=GMPEN4nbnZxrUBYQYkVh`
+  return request({
+    url: liveBusApi,
+    method: "GET",
+    timeout: 3000,
+    headers: {
+      Accept: 'application/JSON'
+    }
+  })
+  console.log(liveBusApi)
+}
+
 const getLiveBusLocations = busIds => {
   console.log('bus id arrray', busIds);
   const testStop = parseInt(busIds[0])
@@ -50,21 +70,29 @@ const getLiveBusLocations = busIds => {
   })
   // console.log(apiGet)
 }
-console.log(getLiveBusLocations)
+// console.log(getLiveBusLocations)
 
-app.get('/busStopRoutes', (req, res) => {
-  const { stopId } = req.query;
-  var apiGet = `http://api.translink.ca/rttiapi/v1/stops/${stopId}/estimates?apikey=iLKjRZhiqjH0r0claiVf&count=3&timeframe=60`;
-  request({
-    url: apiGet,
-    method: "GET",
-    timeout: 3000,
-    headers: {
-      Accept: 'application/JSON'
-    }
-  }).then((data) => {
-    res.json(data)
-  })
+// app.get('/busStopRoutes', (req, res) => {
+//   const { stopId } = req.query;
+//   var apiGet = `http://api.translink.ca/rttiapi/v1/stops/${stopId}/estimates?apikey=iLKjRZhiqjH0r0claiVf&count=3&timeframe=60`;
+//   request({
+//     url: apiGet,
+//     method: "GET",
+//     timeout: 3000,
+//     headers: {
+//       Accept: 'application/JSON'
+//     }
+//   }).then((data) => {
+//     res.json(data)
+//   })
+// })
+
+app.get('/buses_coord', (req, res) =>{
+  knex('live_bus')
+        .then(getLiveBusCoord)
+        .then(function (stops){
+          res.send(stops)
+        })
 })
 
 //this is for stops and should be renamed
@@ -94,4 +122,4 @@ app.listen(3000, () => {
   // setInterval(liveBusData, 5000);
   // liveBusData()
   console.log(`Server listening on port ${PORT} in ${ENV} mode.`);
-}); 
+});

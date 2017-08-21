@@ -59,14 +59,14 @@ class App extends React.Component {
     const lat = e.latLng.lat()
     const lng = e.latLng.lng()
 
-    fetch(`http://localhost:3000/get_buses_in_proximity?lat=${lat}&lng=${lng}`)
+    fetch(`http://localhost:3000/buses_coord?Latitude=${lat}&Longitude=${lng}`)
       .then(response => response.json())
       .then((data) => {
         let location = this.state.markers.slice(0, 1);
         // location.position.lat = lat
         // location.position.lng = lng
         let stops = data.map(stop => {
-          return createMarker(parseFloat(stop.lat), parseFloat(stop.lng), parseInt(stop.stop));
+          return createMarker(parseFloat(stop.Latitude), parseFloat(stop.Longitude));
         })
 
         let newMarkers = [
@@ -78,10 +78,33 @@ class App extends React.Component {
         this.setState({
           circles: newCircles,
           markers: newMarkers,
-          lat: lat,
-          lng: lng,
+          latitude: lat,
+          lng: lng
         }, this.startAnimation.bind(this))
       })
+    // fetch(`http://localhost:3000/get_buses_in_proximity?lat=${lat}&lng=${lng}`)
+    //   .then(response => response.json())
+    //   .then((data) => {
+    //     let location = this.state.markers.slice(0, 1);
+    //     // location.position.lat = lat
+    //     // location.position.lng = lng
+    //     let stops = data.map(stop => {
+    //       return createMarker(parseFloat(stop.lat), parseFloat(stop.lng), parseInt(stop.stop));
+    //     })
+    //
+    //     let newMarkers = [
+    //       location,
+    //       ...stops
+    //     ]
+    //     const newCircles = this.state.circles.concat(createCircle(lat, lng))
+    //
+    //     this.setState({
+    //       circles: newCircles,
+    //       markers: newMarkers,
+    //       lat: lat,
+    //       lng: lng,
+    //     }, this.startAnimation.bind(this))
+    //   })
   }
 
   startAnimation() {
@@ -114,20 +137,18 @@ class App extends React.Component {
   // Handles clicks on bus stops
   stopClickHandler(clickedMarker) {
     this.state.markers.forEach((marker, index) => {
-      if (marker.stopId === clickedMarker.stopId) { 
+      if (marker.stopId === clickedMarker.stopId) {
         const newMarkers = [...this.state.markers];
-
-
         fetch(`http://localhost:3000/busStopRoutes?stopId=${marker.stopId}`)
           .then(response => response.json())
-          .then((data) => {    
+          .then((data) => {
             //takes the index of the clicked marker
             newMarkers[index].showInfo = true;
             newMarkers[index].info = JSON.parse(data);
             console.log("from stopClick:", newMarkers[index].info.length)
             //passes in the new marker object
             this.setState({
-              markers: newMarkers          
+              markers: newMarkers
             })
           })
       }
@@ -151,7 +172,7 @@ class App extends React.Component {
           circles={this.state.circles}
           markers={this.state.markers}
           onMarkerRightClick={() => { console.log("HELLO") }}
-          onMarkerClick={ this.stopClickHandler }          
+          onMarkerClick={ this.stopClickHandler }
         />
       </div>
     )
