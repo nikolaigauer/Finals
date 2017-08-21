@@ -73,6 +73,7 @@ class App extends React.Component {
           location,
           ...stops
         ]
+        
         const newCircles = this.state.circles.concat(createCircle(lat, lng))
 
         this.setState({
@@ -132,6 +133,7 @@ class App extends React.Component {
       }
     })
   };
+
 
   render() {
     const url = `http://localhost:3000/get_buses_in_proximity?lat=${this.state.lat}&lng=${this.state.lng}`;

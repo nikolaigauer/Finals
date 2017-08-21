@@ -14,7 +14,7 @@ const Map = withGoogleMap(props => (
     }}
   >
 
-    {props.circles.map((circle, index) => {
+    {props.circles.map((circle, index) => (
       <Circle
         key={circle.key}
         clickable={false}
@@ -28,16 +28,15 @@ const Map = withGoogleMap(props => (
           strokeWeight: 10,
         }}
       />
-    })}
+    ))}
 
     {props.markers.map((marker, index) => {
 
       let stopInfo = ""
       if (marker.info !== undefined && marker.info.length > 0) {
         stopInfo = marker.info.map(route => {
-          console.log(route)
-          //need these route numbers to show up some how
-          return <div key={route.RouteNo}>{route.RouteNo}</div>
+          console.log("route:", route)
+          return <div key={route.RouteNo}>{route.RouteNo} {route.Schedules[0].Destination} Leaving in: {route.Schedules[0].ExpectedCountdown} minute(s) </div>   
         })
         console.log("stopInfo:", stopInfo)
       }
@@ -53,14 +52,14 @@ const Map = withGoogleMap(props => (
         onClick={() => props.onMarkerClick(marker)}
         onRightClick={() => props.onMarkerRightClick(index)}
       >
-        {marker.showInfo && (
+         {marker.showInfo && (
           <InfoWindow onCloseClick={() => console.log("WHATEVER")}>
             <div>{stopInfo}</div>
           </InfoWindow>
-        )}
+        )} 
       </Marker>
     })
-    }
+    }    
   </GoogleMap>
 ));
 
