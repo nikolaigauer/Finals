@@ -54,11 +54,32 @@ class App extends React.Component {
     this.stopClickHandler = this.stopClickHandler.bind(this)
   }
 
+
   handleMarkerDrop(e) {
     console.log(e.latLng.lat(), e.latLng.lng())
     const lat = e.latLng.lat()
     const lng = e.latLng.lng()
+    fetch(`http://localhost:3000/buses_coord?lat=${lat}&lng=${lng}`)
+      .then(response => response.json())
+      .then((data) => {
+        let location = this.state.markers.slice(0, 1);
+        let stops = data.map(stop => {
+          return createMarker(parseFloat(stop.lat), parseFloat(stop.lng));
+        })
 
+        let newMarkers = [
+          location,
+          ...stops
+        ]
+        const newCircles = this.state.circles.concat(createCircle(lat, lng))
+
+        this.setState({
+          circles: newCircles,
+          markers: newMarkers,
+          latitude: lat,
+          lng: lng
+        }, this.startAnimation.bind(this))
+      })
     fetch(`http://localhost:3000/get_buses_in_proximity?lat=${lat}&lng=${lng}`)
       .then(response => response.json())
       .then((data) => {
@@ -115,19 +136,22 @@ class App extends React.Component {
   // Handles clicks on bus stops
   stopClickHandler(clickedMarker) {
     this.state.markers.forEach((marker, index) => {
-      if (marker.stopId === clickedMarker.stopId) { 
+      if (marker.stopId === clickedMarker.stopId) {
         const newMarkers = [...this.state.markers];
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
         fetch(`http://localhost:3000/busStopRoutes?stopId=${marker.stopId}`)
           .then(response => response.json())
-          .then((data) => {    
+          .then((data) => {
             //takes the index of the clicked marker
             newMarkers[index].showInfo = true;
             newMarkers[index].info = JSON.parse(data);
             console.log("from stopClick:", newMarkers[index].info.length)
             //passes in the new marker object
             this.setState({
-              markers: newMarkers          
+              markers: newMarkers
             })
           })
       }
@@ -146,12 +170,11 @@ class App extends React.Component {
           mapElement={
             <div style={{ height: "100%" }} />
           }
-          onMapLoad={_.noop}
           onMapClick={(event) => this.handleMarkerDrop(event)}
           circles={this.state.circles}
           markers={this.state.markers}
           onMarkerRightClick={() => { console.log("HELLO") }}
-          onMarkerClick={ this.stopClickHandler }          
+          onMarkerClick={ this.stopClickHandler }
         />
       </div>
     )

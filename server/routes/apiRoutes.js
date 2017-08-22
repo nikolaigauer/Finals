@@ -7,25 +7,15 @@ function createRoutes(knex) {
     knex('live_bus').then(data => res.json(data));
 	});
 
+	// localhost:3000/livebusData should display all the current live busses at the time
+	// using that data, we will then map through each object and store long lat and recording time in a arrray
+	// using the array, we can store the long and lat and recorded time in bus tables
 	router.post('/livebusdata', (req, res) => {
 		var liveBus = req.body.livebus;
 			knex('live_bus').insert({
 				LiveBus: liveBus
 			})
 	});
-	
-	router.get('/livebusdata', (req, res) => {
-		const lat = req.body.params.lat
-		const lng = req.body.params.lng
-		const data = knex.raw(`SELECT * FROM bus_stops
-      WHERE ST_DWithin(
-        Geography(ST_MakePoint(CAST(lat as float), CAST(long as float))),
-        Geography(ST_MakePoint(?, ?)),
-        1 * 350
-	  );`, [lat, lng])
-    .then(data => res.json(data));
-
-	})
 	return router;
 }
 module.exports = createRoutes;

@@ -22,7 +22,8 @@ exports.up = function(knex, Promise) {
 
     }),
     knex.schema.createTable('bus', (table) => {
-      table.string("bus_id")
+      table.increments();
+      table.string("bus_id");
       table.string('long');
       table.string('lat');
       table.string('recorded_time');
