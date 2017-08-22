@@ -32,29 +32,13 @@ const Map = withGoogleMap(props => (
 
     {props.markers.map((marker, index) => {
     //Logic to separate busses from bus stops so they render with different icons
-    if (marker.stopId !== null && marker.stopId >= 1 ) {
-      let stopInfo = ""
-      //Logic to ensure only bus stops with valid info are rendered
-      if (marker.info !== undefined && marker.info.length > 0) {
-        stopInfo = marker.info.map(route => {
-          console.log("route direction:", route.Direction)
-          return <div key={route.RouteNo}>
-            {route.RouteNo} 
-            {route.Schedules[0].Destination} 
-            {route.Direction} 
-            Leaving in: {route.Schedules[0].ExpectedCountdown} 
-            minute(s) 
-          </div>   
-        })
-      }
-  
+    if (marker.stopId !== null && marker.stopId >= 1 ) {  
         return <Marker
           {...marker}
           options={{
             icon: {
               url: "../images/503.png",
               scaledSize: new google.maps.Size(50, 50)
-
             }
           }}
           onClick={() => props.onMarkerClick(marker)}
@@ -69,24 +53,18 @@ const Map = withGoogleMap(props => (
             icon: {
               url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
               scaledSize: new google.maps.Size(30, 30)
-            }
-            
-            
+            }                     
           }}
           onClick={() => props.onMarkerClick(marker)}
           onRightClick={() => props.onMarkerRightClick(index)}
         >
           {marker.showInfo && (
             <InfoWindow>
-              <div>007 WEST (placeholder)</div>
+              <div id="bus-info-window">007 WEST</div>
             </InfoWindow>
           )} 
         </Marker>
-      }
-
-      
-
-
+      }    
     })
     }    
   </GoogleMap>
