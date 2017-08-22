@@ -21,6 +21,8 @@ function createMarker(lat, lng, stopId, routeNo, direction) {
       lat: lat,
       lng: lng,
     },
+    RouteNo: routeNo,
+    Direction: direction,
     stopId: stopId,
     draggable: false,
     key: Math.random(),
@@ -171,8 +173,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-        // <Sidebar
-        //   markers={this.state.markers}
-        //   showInfo={this.state.stopInfo}
-        // >HEloooo</Sidebar>

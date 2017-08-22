@@ -37,7 +37,7 @@ const Map = withGoogleMap(props => (
       //Logic to ensure only bus stops with valid info are rendered
       if (marker.info !== undefined && marker.info.length > 0) {
         stopInfo = marker.info.map(route => {
-          console.log("route:", route.Direction)
+          console.log("route direction:", route.Direction)
           return <div key={route.RouteNo}>
             {route.RouteNo} 
             {route.Schedules[0].Destination} 
@@ -46,7 +46,6 @@ const Map = withGoogleMap(props => (
             minute(s) 
           </div>   
         })
-        console.log("stopInfo:", stopInfo)
       }
   
         return <Marker
@@ -74,7 +73,7 @@ const Map = withGoogleMap(props => (
           options={{
             icon: {
               url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
-              scaledSize: new google.maps.Size(50, 50)
+              scaledSize: new google.maps.Size(30, 30)
             }
             
             

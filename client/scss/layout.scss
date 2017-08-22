@@ -9,12 +9,18 @@ html, body, .full-height {
   position: fixed;
   float: left;
   width: 365px;
-  height: 250px;
+  height: auto;
   top:50px;
   margin-left: 30px;
   margin-top: 200px;
   overflow-y: auto;
-  font-size: 2em;
+  font-size: 1em;
+}
+
+#stop-info {
+  background: white;
+  border-radius: 8px;
+  border: 2px;
 }
 #sidebar-wrapper {
   z-index: 1000;
