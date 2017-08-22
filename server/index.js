@@ -2,7 +2,6 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require("body-parser");
-// const request = require("request");
 var request = require('request-promise');
 var cors = require('cors');
 const app = express();
@@ -19,12 +18,10 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 
-
-// const api = require('./routes/apiRoutes')(knex);
+// requires live bus query file
 const liveBusData = require('../util/translink')(knex);
 
-// app.use('/api', api);
-
+// loops through sql rows query and returns necessary data
 const getStopNumbers = ({ rows }) => rows.map(r => {
   return {
     stop: r.stop_number,
@@ -32,17 +29,16 @@ const getStopNumbers = ({ rows }) => rows.map(r => {
     lng: r.long
   }
 });
-
 const getBusCords = ({ rows }) => rows.map(r => {
   return {
     lat: r.lat,
-    lng: r.long
+    lng: r.long,
+    routeNo: r.routeNo,
+    direction: r.direction
   }
 });
-console.log(getBusCords)
 
 const getLiveBusCoord = stopNo => {
-
   var liveBusApi = `http://api.translink.ca/rttiapi/v1/buses?apikey=GMPEN4nbnZxrUBYQYkVh`
   return request({
     url: liveBusApi,
@@ -52,26 +48,22 @@ const getLiveBusCoord = stopNo => {
       Accept: 'application/JSON'
     }
   })
-  console.log(liveBusApi)
 }
 
-const getLiveBusLocations = busIds => {
-  console.log('bus id arrray', busIds);
-  const testStop = parseInt(busIds[0])
-  console.log('this is bus id with an index of 0:', testStop)
-
-  var apiGet = `http://api.translink.ca/rttiapi/v1/stops/${testStop}/estimates?apikey=iLKjRZhiqjH0r0claiVf&count=3&timeframe=60`;
-  return request({
+app.get('/livebusroutes', (req, res) => {
+  const { stopId } = req.query;
+  var apiGet = `http://api.translink.ca/rttiapi/v1/buses?apikey=GMPEN4nbnZxrUBYQYkVh&stopNo=${stopId}`;
+  request({
     url: apiGet,
     method: "GET",
     timeout: 3000,
     headers: {
       Accept: 'application/JSON'
     }
+  }).then((data) => {
+    res.json(data)
   })
-  // console.log(apiGet)
-}
-// console.log(getLiveBusLocations)
+})
 
 app.get('/busStopRoutes', (req, res) => {
   const { stopId } = req.query;
@@ -90,11 +82,6 @@ app.get('/busStopRoutes', (req, res) => {
 
 app.get('/buses_coord', (req, res) =>{
   const { lat, lng } = req.query;
-  // const lat = 49.27766072946756
-  // const lng = -123.11262130737305
-
-  console.log('lat', lat);
-  console.log('lng', lng);
   const sqlQuery = `SELECT *
     FROM bus
     WHERE ST_DWithin( Geography(ST_MakePoint(CAST(lat as float),
@@ -112,11 +99,6 @@ app.get('/buses_coord', (req, res) =>{
 //this is for stops and should be renamed
 app.get('/get_buses_in_proximity', (req, res) => {
   const { lat, lng } = req.query;
-  // const lat = 49.27766072946756
-  // const lng = -123.11262130737305
-
-  console.log('lat', lat);
-  console.log('lng', lng);
   const sqlQuery = `SELECT *
     FROM bus_stops
     WHERE ST_DWithin( Geography(ST_MakePoint(CAST(lat as float),
@@ -129,11 +111,9 @@ app.get('/get_buses_in_proximity', (req, res) => {
     .then(function (stops) {
       res.json(stops)
     })
-  // .then(getLiveBusLocations)
 })
 
 app.listen(3000, () => {
-  setInterval(liveBusData, 5000);
-  // liveBusData()
+  setInterval(liveBusData, 10000);
   console.log(`Server listening on port ${PORT} in ${ENV} mode.`);
 });

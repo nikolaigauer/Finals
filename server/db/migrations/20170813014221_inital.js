@@ -27,6 +27,8 @@ exports.up = function(knex, Promise) {
       table.string('long');
       table.string('lat');
       table.string('recorded_time');
+      table.string('routeNo');
+      table.string('direction');
     })
   ]);
 };

@@ -20,7 +20,9 @@ module.exports = knex => {
 							"bus_id": bus.TripId,
 							'long': bus.Longitude,
 							'lat':	bus.Latitude,
-							'recorded_time': bus.RecordedTime
+							'recorded_time': bus.RecordedTime,
+							'routeNo': bus.RouteNo,
+							'direction': bus.Direction
 						}
 					});
 					knex('bus')
