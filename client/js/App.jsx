@@ -54,19 +54,17 @@ class App extends React.Component {
     this.stopClickHandler = this.stopClickHandler.bind(this)
   }
 
+
   handleMarkerDrop(e) {
     console.log(e.latLng.lat(), e.latLng.lng())
     const lat = e.latLng.lat()
     const lng = e.latLng.lng()
-
-    fetch(`http://localhost:3000/buses_coord?Latitude=${lat}&Longitude=${lng}`)
+    fetch(`http://localhost:3000/buses_coord?lat=${lat}&lng=${lng}`)
       .then(response => response.json())
       .then((data) => {
         let location = this.state.markers.slice(0, 1);
-        // location.position.lat = lat
-        // location.position.lng = lng
         let stops = data.map(stop => {
-          return createMarker(parseFloat(stop.Latitude), parseFloat(stop.Longitude));
+          return createMarker(parseFloat(stop.lat), parseFloat(stop.lng));
         })
 
         let newMarkers = [
@@ -167,7 +165,6 @@ class App extends React.Component {
           mapElement={
             <div style={{ height: "100%" }} />
           }
-          onMapLoad={_.noop}
           onMapClick={(event) => this.handleMarkerDrop(event)}
           circles={this.state.circles}
           markers={this.state.markers}

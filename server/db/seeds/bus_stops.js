@@ -18,5 +18,5 @@ const createStops = (knex, stop) => {
     long: stop.long,
     lat: stop.lat,
     routes: stop.stop_id
-  });
+  })
 };

@@ -11,13 +11,24 @@ module.exports = knex => {
 		      Accept:'application/JSON'
 		  }
 		}, function(error, response, body) {
-				console.log(body);
 				if (error) {
 					console.log(error);
 				} else {
-					knex('live_bus').insert({
-						LiveBus: body
-					}).then(() => {});
+					const busses = JSON.parse(body);
+					const rows = busses.map(function(bus) {
+						return {
+							"bus_id": bus.TripId,
+							'long': bus.Longitude,
+							'lat':	bus.Latitude,
+							'recorded_time': bus.RecordedTime
+						}
+					});
+					knex('bus')
+					.del()
+					.then(function() {
+						return knex('bus')
+						.insert(rows)
+					})
 				}
 		});
 	}

@@ -20,11 +20,10 @@ app.set('view engine', 'html');
 
 
 
-const api = require('./routes/apiRoutes')(knex);
+// const api = require('./routes/apiRoutes')(knex);
 const liveBusData = require('../util/translink')(knex);
-const cordinates = require('./routes/UserCordinates')(knex);
-app.use('/api', api);
-app.use('/api', cordinates);
+
+// app.use('/api', api);
 
 const getStopNumbers = ({ rows }) => rows.map(r => {
   return {
@@ -36,12 +35,14 @@ const getStopNumbers = ({ rows }) => rows.map(r => {
 
 const getBusCords = ({ rows }) => rows.map(r => {
   return {
-    lat: r.Latitude,
-    lng: r.Longit
+    lat: r.lat,
+    lng: r.long
   }
 });
+console.log(getBusCords)
 
 const getLiveBusCoord = stopNo => {
+
   var liveBusApi = `http://api.translink.ca/rttiapi/v1/buses?apikey=GMPEN4nbnZxrUBYQYkVh`
   return request({
     url: liveBusApi,
@@ -88,11 +89,24 @@ const getLiveBusLocations = busIds => {
 // })
 
 app.get('/buses_coord', (req, res) =>{
-  knex('live_bus')
-        .then(getLiveBusCoord)
-        .then(function (stops){
-          res.send(stops)
-        })
+  const { lat, lng } = req.query;
+  // const lat = 49.27766072946756
+  // const lng = -123.11262130737305
+
+  console.log('lat', lat);
+  console.log('lng', lng);
+  const sqlQuery = `SELECT *
+    FROM bus
+    WHERE ST_DWithin( Geography(ST_MakePoint(CAST(lat as float),
+          CAST(long as float))),
+          Geography(ST_MakePoint(${lat}, ${lng})),
+          150);`
+
+  knex.raw(sqlQuery)
+    .then(getBusCords)
+    .then(function (stops) {
+      res.json(stops)
+    })
 })
 
 //this is for stops and should be renamed
@@ -119,7 +133,7 @@ app.get('/get_buses_in_proximity', (req, res) => {
 })
 
 app.listen(3000, () => {
-  // setInterval(liveBusData, 5000);
+  setInterval(liveBusData, 5000);
   // liveBusData()
   console.log(`Server listening on port ${PORT} in ${ENV} mode.`);
 });
