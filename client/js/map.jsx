@@ -4,7 +4,7 @@ import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from "react-goog
 const Map = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={17}
+    defaultZoom={18}
     defaultCenter={{ lat: 49.28319989, lng: -123.1221468 }}
     onClick={props.onMapClick}
     defaultOptions={{
@@ -54,6 +54,8 @@ const Map = withGoogleMap(props => (
           options={{
             icon: {
               url: "../images/503.png",
+              scaledSize: new google.maps.Size(50, 50)
+
             }
           }}
           onClick={() => props.onMarkerClick(marker)}
@@ -68,9 +70,10 @@ const Map = withGoogleMap(props => (
       } else {
       return <Marker
           {...marker}
+          showInfo="true"
           options={{
             icon: {
-              url: "https://maxcdn.icons8.com/Share/icon/p1em/Maps//street_view1600.png",
+              url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
               scaledSize: new google.maps.Size(50, 50)
             }
             
@@ -81,7 +84,7 @@ const Map = withGoogleMap(props => (
         >
           {marker.showInfo && (
             <InfoWindow>
-              <div>{stopInfo}</div>
+              <div>007 WEST (placeholder)</div>
             </InfoWindow>
           )} 
         </Marker>

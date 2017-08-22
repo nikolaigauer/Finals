@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 // import { Markers } from 'react-google-maps'
 import Map from "./map.jsx";
+import Sidebar from "./sidebar.jsx";
 import stops from '../../server/db/json/stops.js';
+
 import '../scss/application.scss';
 
 // function getBusStopMarkers(stops) {
@@ -13,7 +15,7 @@ import '../scss/application.scss';
 // }
 
 
-function createMarker(lat, lng, stopId) {
+function createMarker(lat, lng, stopId, routeNo, direction) {
   return {
     position: {
       lat: lat,
@@ -66,31 +68,31 @@ class App extends React.Component {
         let stops1 = data.map(stop => {
           return createMarker(parseFloat(stop.lat), parseFloat(stop.lng));
         })
-    fetch(`http://localhost:3000/get_buses_in_proximity?lat=${lat}&lng=${lng}`)
-      .then(response => response.json())
-      .then((data) => {
-        let location = this.state.markers.slice(0, 1);
-        // location.position.lat = lat
-        // location.position.lng = lng
-        let stops = data.map(stop => {
-          return createMarker(parseFloat(stop.lat), parseFloat(stop.lng), parseInt(stop.stop));
-        })
+        fetch(`http://localhost:3000/get_buses_in_proximity?lat=${lat}&lng=${lng}`)
+          .then(response => response.json())
+          .then((data) => {
+            let location = this.state.markers.slice(0, 1);
+            // location.position.lat = lat
+            // location.position.lng = lng
+            let stops = data.map(stop => {
+              return createMarker(parseFloat(stop.lat), parseFloat(stop.lng), parseInt(stop.stop));
+            })
 
-        let newMarkers = [
-          location,
-          ...stops,
-          ...stops1
-        ]
-        
-        const newCircles = this.state.circles.concat(createCircle(lat, lng))
+            let newMarkers = [
+              location,
+              ...stops,
+              ...stops1
+            ]
 
-        this.setState({
-          circles: newCircles,
-          markers: newMarkers,
-          lat: lat,
-          lng: lng,
-        }, this.startAnimation.bind(this))
-      })
+            const newCircles = this.state.circles.concat(createCircle(lat, lng))
+
+            this.setState({
+              circles: newCircles,
+              markers: newMarkers,
+              lat: lat,
+              lng: lng,
+            }, this.startAnimation.bind(this))
+          })
       })
   }
 
@@ -104,7 +106,7 @@ class App extends React.Component {
     let newCircles = this.state.circles
     let secondCircle = this.state.circles
     newCircles.forEach(circle => {
-      circle.radius += 300 / 40
+      circle.radius += 200 / 40
       circle.opacity -= 1 / 40
     })
 
@@ -158,7 +160,10 @@ class App extends React.Component {
           circles={this.state.circles}
           markers={this.state.markers}
           onMarkerRightClick={() => { console.log("HELLO") }}
-          onMarkerClick={ this.stopClickHandler }
+          onMarkerClick={this.stopClickHandler}
+        />
+        <Sidebar
+        markers={this.state.markers}
         />
       </div>
     )
@@ -166,3 +171,8 @@ class App extends React.Component {
 }
 
 export default App;
+
+        // <Sidebar
+        //   markers={this.state.markers}
+        //   showInfo={this.state.stopInfo}
+        // >HEloooo</Sidebar>
