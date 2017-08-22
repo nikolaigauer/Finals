@@ -73,20 +73,20 @@ const getLiveBusLocations = busIds => {
 }
 // console.log(getLiveBusLocations)
 
-// app.get('/busStopRoutes', (req, res) => {
-//   const { stopId } = req.query;
-//   var apiGet = `http://api.translink.ca/rttiapi/v1/stops/${stopId}/estimates?apikey=iLKjRZhiqjH0r0claiVf&count=3&timeframe=60`;
-//   request({
-//     url: apiGet,
-//     method: "GET",
-//     timeout: 3000,
-//     headers: {
-//       Accept: 'application/JSON'
-//     }
-//   }).then((data) => {
-//     res.json(data)
-//   })
-// })
+app.get('/busStopRoutes', (req, res) => {
+  const { stopId } = req.query;
+  var apiGet = `http://api.translink.ca/rttiapi/v1/stops/${stopId}/estimates?apikey=iLKjRZhiqjH0r0claiVf&count=3&timeframe=60`;
+  request({
+    url: apiGet,
+    method: "GET",
+    timeout: 3000,
+    headers: {
+      Accept: 'application/JSON'
+    }
+  }).then((data) => {
+    res.json(data)
+  })
+})
 
 app.get('/buses_coord', (req, res) =>{
   const { lat, lng } = req.query;

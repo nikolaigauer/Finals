@@ -31,9 +31,10 @@ const Map = withGoogleMap(props => (
     ))}
 
     {props.markers.map((marker, index) => {
-      console.log(marker.stopId)
-    if (marker.stopId !== undefined && marker.stopId >= 1 ) {
+    //Logic to separate busses from bus stops so they render with different icons
+    if (marker.stopId !== null && marker.stopId >= 1 ) {
       let stopInfo = ""
+      //Logic to ensure only bus stops with valid info are rendered
       if (marker.info !== undefined && marker.info.length > 0) {
         stopInfo = marker.info.map(route => {
           console.log("route:", route.Direction)
@@ -47,14 +48,12 @@ const Map = withGoogleMap(props => (
         })
         console.log("stopInfo:", stopInfo)
       }
-// Use an if statement here to return either bus icon or bus stop icon
   
         return <Marker
           {...marker}
           options={{
             icon: {
-              url: "https://d30y9cdsu7xlg0.cloudfront.net/png/29388-200.png",
-              scaledSize: new google.maps.Size(50, 50)
+              url: "../images/503.png",
             }
           }}
           onClick={() => props.onMarkerClick(marker)}
@@ -70,6 +69,10 @@ const Map = withGoogleMap(props => (
       return <Marker
           {...marker}
           options={{
+            icon: {
+              url: "https://maxcdn.icons8.com/Share/icon/p1em/Maps//street_view1600.png",
+              scaledSize: new google.maps.Size(50, 50)
+            }
             
             
           }}
