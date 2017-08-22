@@ -27,7 +27,7 @@ function createMarker(lat, lng, stopId, routeNo, direction) {
     draggable: false,
     key: Math.random(),
     defaultAnimation: 2,
-    showInfo: false,
+    showInfo: true,
     info: []
   }
 }
@@ -125,6 +125,8 @@ class App extends React.Component {
     })
   }
 
+  //livebusroutes
+
   // Handles clicks on bus stops
   stopClickHandler(clickedMarker) {
     this.state.markers.forEach((marker, index) => {
@@ -148,7 +150,6 @@ class App extends React.Component {
 
 
   render() {
-    const url = `http://localhost:3000/get_buses_in_proximity?lat=${this.state.lat}&lng=${this.state.lng}`;
     return (
       <div id="map-wrapper">
         <Map

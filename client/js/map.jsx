@@ -60,11 +60,6 @@ const Map = withGoogleMap(props => (
           onClick={() => props.onMarkerClick(marker)}
           onRightClick={() => props.onMarkerRightClick(index)}
         >
-          {marker.showInfo && (
-            <InfoWindow>
-              <div>{stopInfo}</div>
-            </InfoWindow>
-          )} 
         </Marker>
       } else {
       return <Marker
