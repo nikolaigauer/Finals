@@ -47,7 +47,7 @@ class App extends React.Component {
       lng: -123.1221468,
       circles: [],
       markers: [
-        createMarker(49.2831119, -123.1221468, 12345)
+        createMarker(49.2831119, -123.1221468)
       ],
     }
     this.currentPosition = 0
