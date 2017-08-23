@@ -34,13 +34,12 @@ const Map = withGoogleMap(props => (
     let info = props.markers.map(marker => marker.info);
 
       //Logic to separate busses from bus stops so they render with different icons
-        
+
       if (marker.stopId !== null && marker.stopId >= 1) {
         {/* let stopInfo = ""
       //Logic to ensure only bus stops with valid info are rendered
       if (marker.info !== undefined && marker.info.length > 0) {
         stopInfo = marker.info.map(route => {
-          console.log("route direction:", route.Direction)
           return <div key={route.RouteNo}>
             {route.RouteNo}
             {route.Schedules[0].Destination}
@@ -49,11 +48,7 @@ const Map = withGoogleMap(props => (
             minute(s)
           </div>
         })
-<<<<<<< HEAD
-      }
-=======
       } */}
->>>>>>> 8f55e456b8d1ba9d038c99d4df310c695ef0bd0f
 
         return <Marker
           {...marker}
@@ -66,43 +61,9 @@ const Map = withGoogleMap(props => (
           onClick={() => props.onMarkerClick(marker)}
           onRightClick={() => props.onMarkerRightClick(index)}
         >
-<<<<<<< HEAD
-          {marker.showInfo && (
-            <InfoWindow>
-              <div>{stopInfo}</div>
-            </InfoWindow>
-          )}
         </Marker>
       } else {
-      return <Marker
-          {...marker}
-          showInfo="true"
-          options={{
-            icon: {
-              url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
-              scaledSize: new google.maps.Size(30, 30)
-            }
 
-
-          }}
-          onClick={() => props.onMarkerClick(marker)}
-          onRightClick={() => props.onMarkerRightClick(index)}
-        >
-          {marker.showInfo && (
-            <InfoWindow>
-              <div>007 WEST (placeholder)</div>
-            </InfoWindow>
-          )}
-        </Marker>
-      }
-
-
-=======
-        </Marker>
-      } else {
->>>>>>> 8f55e456b8d1ba9d038c99d4df310c695ef0bd0f
-
-        console.log("from busses - info", info)
           return <Marker
             {...marker}
             showInfo="true"
@@ -121,8 +82,8 @@ const Map = withGoogleMap(props => (
               </InfoWindow>
             )}
           </Marker>
-            
-        
+
+
 
       }
     })

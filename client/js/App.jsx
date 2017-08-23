@@ -58,7 +58,6 @@ class App extends React.Component {
 
 
   handleMarkerDrop(e) {
-    console.log(e.latLng.lat(), e.latLng.lng())
     const lat = e.latLng.lat()
     const lng = e.latLng.lng()
     fetch(`http://localhost:3000/buses_coord?lat=${lat}&lng=${lng}`)
@@ -136,8 +135,6 @@ class App extends React.Component {
             //takes the index of the clicked marker
             newMarkers[index].showInfo = true;
             newMarkers[index].info = JSON.parse(data);
-            console.log("from stopClick:", newMarkers[index].info.length)
-            //passes in the new marker object
             this.setState({
               markers: newMarkers
             })

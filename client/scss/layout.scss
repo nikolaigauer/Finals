@@ -4,7 +4,15 @@ html, body, .full-height {
   width: 100%;
 }
 #img{
-  position: fixed
+  z-index: 1000;
+  position: absolute;
+  float: left;
+  height: 150px;
+  margin-left: 30px;
+  padding-bottom: 10px;
+  overflow-y: auto;
+  font-size: 2em;
+  border-radius: 10px;
 }
 #sidebar{
   border-radius: 8px;
@@ -14,7 +22,7 @@ html, body, .full-height {
   overflow: -webkit-paged-x;
   float: left;
   width: 365px;
-  top: 50px;
+  top: 150px;
   margin-left: 30px;
   margin-top: auto;
   overflow-x: auto;
@@ -46,8 +54,8 @@ html, body, .full-height {
   height: 100% !important;
   max-height: 60px !important;
   display: block !important;
-}    
-     
+}
+
   /*style the arrow*/
 .gm-style div div div div div div div div {
     background-color: #3C61AD !important;

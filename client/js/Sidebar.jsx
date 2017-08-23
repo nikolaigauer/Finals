@@ -24,8 +24,6 @@ class Sidebar extends React.Component {
 
       </div>
     });
-    // console.log("this is info from sidebar - info:", info)
-
     return (
       <div id="sidebar">
         {info}
