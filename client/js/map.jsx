@@ -34,27 +34,12 @@ const Map = withGoogleMap(props => (
     let info = props.markers.map(marker => marker.info);
       //Logic to separate busses from bus stops so they render with different icons        
       if (marker.stopId !== null && marker.stopId >= 1) {
-        {/* let stopInfo = ""
-      //Logic to ensure only bus stops with valid info are rendered
-      if (marker.info !== undefined && marker.info.length > 0) {
-        stopInfo = marker.info.map(route => {
-          console.log("route direction:", route.Direction)
-          return <div key={route.RouteNo}>
-            {route.RouteNo} 
-            {route.Schedules[0].Destination} 
-            {route.Direction} 
-            Leaving in: {route.Schedules[0].ExpectedCountdown} 
-            minute(s) 
-          </div>   
-        })
-      } */}
-
         return <Marker
           {...marker}
           options={{
             icon: {
               url: "../images/503.png",
-              scaledSize: new google.maps.Size(50, 50)
+              scaledSize: new google.maps.Size(40, 40)
             }
           }}
           onClick={() => props.onMarkerClick(marker)}
@@ -86,5 +71,6 @@ const Map = withGoogleMap(props => (
     }
   </GoogleMap>
 ));
+
 
 export default Map

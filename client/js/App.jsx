@@ -70,7 +70,7 @@ class App extends React.Component {
           // null for stopId
           return createMarker(parseFloat(bus.lat), parseFloat(bus.lng), null, busName);
         })
-        fetch(`http://localhost:3000/get_buses_in_proximity?lat=${lat}&lng=${lng}`)
+        fetch(`http://localhost:3000/get_stops_in_proximity?lat=${lat}&lng=${lng}`)
           .then(response => response.json())
           .then((data) => {
             let location = this.state.markers.slice(0, 1);
@@ -122,7 +122,9 @@ class App extends React.Component {
   }
 
   startAnimation() {
-    // this.handleAutoUpdate()
+    //invokes auto refresh of bus locations
+    this.handleAutoUpdate()
+
     if (this.animating) return;
     this.animating = true;
     this.tick();
@@ -132,7 +134,7 @@ class App extends React.Component {
     let newCircles = this.state.circles
     let secondCircle = this.state.circles
     newCircles.forEach(circle => {
-      circle.radius += 180 / 30
+      circle.radius += 150 / 30
       circle.opacity -= 1 / 30
     })
 
@@ -148,8 +150,6 @@ class App extends React.Component {
       }
     })
   }
-
-  //livebusroutes
 
   // Handles clicks on bus stops
   stopClickHandler(clickedMarker) {

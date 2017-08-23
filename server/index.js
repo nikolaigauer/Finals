@@ -96,8 +96,7 @@ app.get('/buses_coord', (req, res) =>{
     })
 })
 
-//this is for stops and should be renamed
-app.get('/get_buses_in_proximity', (req, res) => {
+app.get('/get_stops_in_proximity', (req, res) => {
   const { lat, lng } = req.query;
   const sqlQuery = `SELECT *
     FROM bus_stops

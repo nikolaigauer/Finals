@@ -1,10 +1,5 @@
-import canUseDOM from "can-use-dom";
-import React from 'react';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from "react-google-maps";
-import Geolocation from "./Geolocation.jsx";
 
-
-export default class Geolocation extends Component {
+export default class GeolocationExample extends Component {
 
   state = {
     center: null,
@@ -58,7 +53,7 @@ export default class Geolocation extends Component {
 
   render() {
     return (
-      <GeolocationGoogleMap
+      <GeolocationExampleGoogleMap
         containerElement={
           <div style={{ height: `100%` }} />
         }
