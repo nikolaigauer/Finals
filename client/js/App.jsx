@@ -109,10 +109,8 @@ class App extends React.Component {
 
             // null for stopId so to only get busses, 0 for animation so to not animate on update
             return createMarker(parseFloat(bus.lat), parseFloat(bus.lng), null, busName, 0);
-            console.log("Updating busses", busName)
           })
           let updatedMarkers = this.state.markers.filter(marker => marker.stopId !== null)
-          console.log(updatedMarkers)
           this.setState({
             markers: [
               ...busses,
@@ -124,7 +122,7 @@ class App extends React.Component {
   }
 
   startAnimation() {
-    this.handleAutoUpdate()
+    // this.handleAutoUpdate()
     if (this.animating) return;
     this.animating = true;
     this.tick();
@@ -134,8 +132,8 @@ class App extends React.Component {
     let newCircles = this.state.circles
     let secondCircle = this.state.circles
     newCircles.forEach(circle => {
-      circle.radius += 200 / 40
-      circle.opacity -= 1 / 40
+      circle.radius += 180 / 30
+      circle.opacity -= 1 / 30
     })
 
     newCircles = newCircles.filter(circle => circle.opacity > 0)
@@ -164,7 +162,6 @@ class App extends React.Component {
             //takes the index of the clicked marker
             newMarkers[index].showInfo = true;
             newMarkers[index].info = JSON.parse(data);
-            console.log("from stopClick:", newMarkers[index].info.length)
             //passes in the new marker object
             this.setState({
               markers: newMarkers

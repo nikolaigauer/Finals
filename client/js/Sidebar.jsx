@@ -21,7 +21,6 @@ class Sidebar extends React.Component {
          </li>
       </div>
     });
-    // console.log("this is info from sidebar - info:", info)
 
     return (
       <div id="sidebar">
@@ -31,16 +30,4 @@ class Sidebar extends React.Component {
   }
 }
 
-// let stopInfo = ""
-//     //Logic to ensure only bus stops with valid info are rendered
-//     if (marker.info !== undefined && marker.info.length > 0) {
-//       stopInfo = marker.info.map(route => {
-//         console.log("route:", route.Direction)
-//         return <div key={route.RouteNo}>
-//           {route.RouteNo} 
-//           {route.Schedules[0].Destination} 
-//           {route.Direction} 
-//           Leaving in: {route.Schedules[0].ExpectedCountdown} 
-//           minute(s) 
-//         </div>   
 export default Sidebar;

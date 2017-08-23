@@ -1,4 +1,19 @@
-module.exports = [
+module.exports =[
+    {
+        "stylers": [
+            {
+                "visibility": "off"
+            },
+        ]
+    },
+    {
+        "featureType": "road",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
     {
         "featureType": "landscape",
         "elementType": "all",
@@ -91,7 +106,7 @@ module.exports = [
         "elementType": "all",
         "stylers": [
             {
-                "hue": "#1CB2BD"
+                // "hue": "#1CB2BD"
             },
             {
                 "saturation": 40
@@ -129,7 +144,7 @@ module.exports = [
         "featureType": "road.highway",
         "elementType": "geometry.fill",
         "stylers": [
-            {   
+            {
                 "visibility": "on",
                 "color": "white"
             }

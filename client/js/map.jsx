@@ -5,7 +5,7 @@ const Map = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
     defaultZoom={18}
-    defaultCenter={{ lat: 49.28319989, lng: -123.1221468 }}
+    defaultCenter={{ lat: 49.2820563, lng: -123.1093474 }}
     onClick={props.onMapClick}
     defaultOptions={{
       disableDefaultUI: true,
