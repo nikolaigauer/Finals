@@ -32,9 +32,7 @@ const Map = withGoogleMap(props => (
 
     {props.markers.map((marker, index) => {
     let info = props.markers.map(marker => marker.info);
-
-      //Logic to separate busses from bus stops so they render with different icons
-        
+      //Logic to separate busses from bus stops so they render with different icons        
       if (marker.stopId !== null && marker.stopId >= 1) {
         {/* let stopInfo = ""
       //Logic to ensure only bus stops with valid info are rendered
@@ -65,7 +63,6 @@ const Map = withGoogleMap(props => (
         </Marker>
       } else {
 
-        console.log("from busses - info", info)
           return <Marker
             {...marker}
             showInfo="true"
@@ -80,13 +77,10 @@ const Map = withGoogleMap(props => (
           >
             {marker.showInfo && (
               <InfoWindow>
-                <div id="bus-info-window">007 WEST</div>
+                <div id="bus-info-window">{marker.busName}</div>
               </InfoWindow>
             )}
-          </Marker>
-            
-        
-
+          </Marker>           
       }
     })
     }

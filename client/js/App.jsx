@@ -15,7 +15,7 @@ import '../scss/application.scss';
 // }
 
 
-function createMarker(lat, lng, stopId) {
+function createMarker(lat, lng, stopId, busName = "", defaultAnimation = 2) {
   return {
     position: {
       lat: lat,
@@ -24,9 +24,10 @@ function createMarker(lat, lng, stopId) {
     stopId: stopId,
     draggable: false,
     key: Math.random(),
-    defaultAnimation: 2,
+    defaultAnimation: defaultAnimation,
     showInfo: true,
-    info: []
+    info: [],
+    busName: busName
   }
 }
 function createCircle(lat, lng) {
@@ -45,17 +46,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      lat: 49.2831119,
-      lng: -123.1221468,
+      lat: null,
+      lng: null,
       circles: [],
-      markers: [
-        createMarker(49.2831119, -123.1221468)
-      ],
+      markers: [],
     }
     this.currentPosition = 0
     this.stopClickHandler = this.stopClickHandler.bind(this)
+    this.counter = null
   }
-
 
   handleMarkerDrop(e) {
     console.log(e.latLng.lat(), e.latLng.lng())
@@ -65,8 +64,11 @@ class App extends React.Component {
       .then(response => response.json())
       .then((data) => {
         let location = this.state.markers.slice(0, 1);
-        let stops1 = data.map(stop => {
-          return createMarker(parseFloat(stop.lat), parseFloat(stop.lng));
+        let stops1 = data.map(bus => {
+          const busName = `${bus.routeNo} ${bus.direction}`
+
+          // null for stopId
+          return createMarker(parseFloat(bus.lat), parseFloat(bus.lng), null, busName);
         })
         fetch(`http://localhost:3000/get_buses_in_proximity?lat=${lat}&lng=${lng}`)
           .then(response => response.json())
@@ -96,7 +98,33 @@ class App extends React.Component {
       })
   }
 
+  handleAutoUpdate() {
+    if (this.counter) clearTimeout(this.counter)
+    this.counter = setInterval(() => {
+      fetch(`http://localhost:3000/buses_coord?lat=${this.state.lat}&lng=${this.state.lng}`)
+        .then(response => response.json())
+        .then((data) => {
+          let busses = data.map(bus => {
+            const busName = `${bus.routeNo} ${bus.direction}`
+
+            // null for stopId so to only get busses, 0 for animation so to not animate on update
+            return createMarker(parseFloat(bus.lat), parseFloat(bus.lng), null, busName, 0);
+            console.log("Updating busses", busName)
+          })
+          let updatedMarkers = this.state.markers.filter(marker => marker.stopId !== null)
+          console.log(updatedMarkers)
+          this.setState({
+            markers: [
+              ...busses,
+              ...updatedMarkers
+            ]
+          })
+        })
+    }, 5000)
+  }
+
   startAnimation() {
+    this.handleAutoUpdate()
     if (this.animating) return;
     this.animating = true;
     this.tick();
@@ -164,7 +192,7 @@ class App extends React.Component {
           onMarkerClick={this.stopClickHandler}
         />
         <Sidebar
-        markers={this.state.markers}
+          markers={this.state.markers}
         />
       </div>
     )

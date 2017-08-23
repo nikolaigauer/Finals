@@ -22,22 +22,33 @@ html, body, .full-height {
    font-size: 22px;
    font-weight: 400;
    padding: 0px;
-   background-color: #48b5e9;
+  //  background-color: #48b5e9;
    color: white;
    margin: 0px;
    border-radius: 2px 2px 0 0;
 }
 
-.gm-style .gm-style-iw {
+.gm-style {
+  .gm-style-iw {
   background-color: #3C61AD !important;
-  top: 0 !important;
-  left: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-height: 60px !important;
-  display: block !important;
-}    
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 60px !important;
+    display: block !important;
+    text-align: center;
+    padding-top: 12px;
+  }  
+  div {
+    border-radius: 50px !important;
+    box-shadow: none !important;
+    // width: 80px !important;
+    // background: rgba(255, 255, 255, .85)
+  }
+}
+
      
   /*style the arrow*/
 .gm-style div div div div div div div div {
