@@ -31,8 +31,26 @@ const Map = withGoogleMap(props => (
     ))}
 
     {props.markers.map((marker, index) => {
-    //Logic to separate busses from bus stops so they render with different icons
-    if (marker.stopId !== null && marker.stopId >= 1 ) {  
+    let info = props.markers.map(marker => marker.info);
+
+      //Logic to separate busses from bus stops so they render with different icons
+        
+      if (marker.stopId !== null && marker.stopId >= 1) {
+        {/* let stopInfo = ""
+      //Logic to ensure only bus stops with valid info are rendered
+      if (marker.info !== undefined && marker.info.length > 0) {
+        stopInfo = marker.info.map(route => {
+          console.log("route direction:", route.Direction)
+          return <div key={route.RouteNo}>
+            {route.RouteNo} 
+            {route.Schedules[0].Destination} 
+            {route.Direction} 
+            Leaving in: {route.Schedules[0].ExpectedCountdown} 
+            minute(s) 
+          </div>   
+        })
+      } */}
+
         return <Marker
           {...marker}
           options={{
@@ -46,27 +64,32 @@ const Map = withGoogleMap(props => (
         >
         </Marker>
       } else {
-      return <Marker
-          {...marker}
-          showInfo="true"
-          options={{
-            icon: {
-              url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
-              scaledSize: new google.maps.Size(30, 30)
-            }                     
-          }}
-          onClick={() => props.onMarkerClick(marker)}
-          onRightClick={() => props.onMarkerRightClick(index)}
-        >
-          {marker.showInfo && (
-            <InfoWindow>
-              <div id="bus-info-window">007 WEST</div>
-            </InfoWindow>
-          )} 
-        </Marker>
-      }    
+
+        console.log("from busses - info", info)
+          return <Marker
+            {...marker}
+            showInfo="true"
+            options={{
+              icon: {
+                url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
+                scaledSize: new google.maps.Size(30, 30)
+              }
+            }}
+            onClick={() => props.onMarkerClick(marker)}
+            onRightClick={() => props.onMarkerRightClick(index)}
+          >
+            {marker.showInfo && (
+              <InfoWindow>
+                <div id="bus-info-window">007 WEST</div>
+              </InfoWindow>
+            )}
+          </Marker>
+            
+        
+
+      }
     })
-    }    
+    }
   </GoogleMap>
 ));
 

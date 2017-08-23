@@ -15,14 +15,12 @@ import '../scss/application.scss';
 // }
 
 
-function createMarker(lat, lng, stopId, routeNo, direction) {
+function createMarker(lat, lng, stopId) {
   return {
     position: {
       lat: lat,
       lng: lng,
     },
-    RouteNo: routeNo,
-    Direction: direction,
     stopId: stopId,
     draggable: false,
     key: Math.random(),
