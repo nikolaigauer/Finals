@@ -9,18 +9,21 @@ class Sidebar extends React.Component {
     info = info.reduce((acc, infoArray) => acc.concat(infoArray), []).map((info, index) => {
       console.log("from sidebar marker:", info, "index:", index);
       return <div id="stop-info">
-        <h2>
-          {info.RouteNo}
-        </h2>
-        <li>
-          Direction: {info.Direction}
-        </li>
-        <li>
-          Towards: {info.Schedules[0].Destination}
-        </li>
-        <li>
-          Leaving in: {info.Schedules[0].ExpectedCountdown} minute(s)
-         </li>
+          <ul className="sidebar-nav">
+            <li>
+              RouteNo: {info.RouteNo}
+            </li>
+            <li>
+              Direction: {info.Direction}
+            </li>
+            <li>
+              Towards: {info.Schedules[0].Destination}
+            </li>
+            <li>
+              Leaving in: {info.Schedules[0].ExpectedCountdown} minute(s)
+             </li>
+           </ul>
+
       </div>
     });
     // console.log("this is info from sidebar - info:", info)
@@ -39,10 +42,10 @@ class Sidebar extends React.Component {
 //       stopInfo = marker.info.map(route => {
 //         console.log("route:", route.Direction)
 //         return <div key={route.RouteNo}>
-//           {route.RouteNo} 
-//           {route.Schedules[0].Destination} 
-//           {route.Direction} 
-//           Leaving in: {route.Schedules[0].ExpectedCountdown} 
-//           minute(s) 
-//         </div>   
+//           {route.RouteNo}
+//           {route.Schedules[0].Destination}
+//           {route.Direction}
+//           Leaving in: {route.Schedules[0].ExpectedCountdown}
+//           minute(s)
+//         </div>
 export default Sidebar;

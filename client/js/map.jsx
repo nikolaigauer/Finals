@@ -39,15 +39,15 @@ const Map = withGoogleMap(props => (
         stopInfo = marker.info.map(route => {
           console.log("route direction:", route.Direction)
           return <div key={route.RouteNo}>
-            {route.RouteNo} 
-            {route.Schedules[0].Destination} 
-            {route.Direction} 
-            Leaving in: {route.Schedules[0].ExpectedCountdown} 
-            minute(s) 
-          </div>   
+            {route.RouteNo}
+            {route.Schedules[0].Destination}
+            {route.Direction}
+            Leaving in: {route.Schedules[0].ExpectedCountdown}
+            minute(s)
+          </div>
         })
       }
-  
+
         return <Marker
           {...marker}
           options={{
@@ -64,7 +64,7 @@ const Map = withGoogleMap(props => (
             <InfoWindow>
               <div>{stopInfo}</div>
             </InfoWindow>
-          )} 
+          )}
         </Marker>
       } else {
       return <Marker
@@ -75,8 +75,8 @@ const Map = withGoogleMap(props => (
               url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
               scaledSize: new google.maps.Size(30, 30)
             }
-            
-            
+
+
           }}
           onClick={() => props.onMarkerClick(marker)}
           onRightClick={() => props.onMarkerRightClick(index)}
@@ -85,11 +85,11 @@ const Map = withGoogleMap(props => (
             <InfoWindow>
               <div>007 WEST (placeholder)</div>
             </InfoWindow>
-          )} 
+          )}
         </Marker>
       }
 
-      
+
 
 
     })

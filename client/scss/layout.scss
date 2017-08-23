@@ -3,28 +3,36 @@ html, body, .full-height {
   height: 100%;
   width: 100%;
 }
-
-#sidebar {
+#img{
+  position: fixed
+}
+#sidebar{
+  border-radius: 8px;
+  display:block;
   z-index: 100;
-  position: fixed;
+  position: absolute;
+  overflow: -webkit-paged-x;
   float: left;
   width: 365px;
-  height: auto;
-  top:50px;
+  top: 50px;
   margin-left: 30px;
-  margin-top: 200px;
-  overflow-y: auto;
+  margin-top: auto;
+  overflow-x: auto;
   font-size: 1em;
+  background: -webkit-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  background: -moz-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  background: -o-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
+  background: linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
 }
 
 #stop-info {
-  background: white;
   border-radius: 8px;
   border: 2px;
 }
 #sidebar-wrapper {
   z-index: 1000;
-  position: fixed;
+  position: inherit;
   float: left;
   width: 365px;
   height: 250px;
@@ -32,10 +40,6 @@ html, body, .full-height {
   margin-left: 30px;
   overflow-y: auto;
   font-size: 2em;
-  // background: -webkit-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
-  // background: -moz-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
-  // background: -o-linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%);
-  // background: linear-gradient(rgba(30,87,153,1) 0%, rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 div#map-wrapper {
@@ -54,10 +58,10 @@ div#app {
 
 .sidebar-nav {
   overflow: hidden;
-   position: absolute;
+   position: inherit;
    top: 0;
-   width: 350px;
-   height: 200px;
+   width: 100%;
+   height: 100%;
    margin: 15px;
    padding: 0;
    list-style: none;
@@ -101,24 +105,6 @@ div#app {
  text-decoration: underline;
 }
 
-input#form-start{
-  padding: 10px;
-  width: 230px;
-  margin-left: 70px;
-  margin-bottom: 5px;
-  border-radius: 10px;
-  font-family: 'Titillium Web', sans-serif;
-
-}
-input#form-destination{
-  padding: 10px;
-  width: 230px;
-  margin-left: 70px;
-  margin-bottom: 5px;
-  border-radius: 10px;
-  font-family: 'Titillium Web', sans-serif;
-
-}
 div#sidebar-wrapper{
   border-radius: 0px 12px 12px 0px;
 }
@@ -138,4 +124,3 @@ div#sidebar-wrapper{
 .gmnoprint div {
     background:none !important;
 }
-
