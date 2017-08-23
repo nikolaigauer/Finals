@@ -4,7 +4,7 @@ import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from "react-goog
 const Map = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={18}
+    defaultZoom={14}
     defaultCenter={{ lat: 49.28319989, lng: -123.1221468 }}
     onClick={props.onMapClick}
     defaultOptions={{

@@ -109,10 +109,9 @@ class App extends React.Component {
 
             // null for stopId so to only get busses, 0 for animation so to not animate on update
             return createMarker(parseFloat(bus.lat), parseFloat(bus.lng), null, busName, 0);
-            console.log("Updating busses", busName)
           })
           let updatedMarkers = this.state.markers.filter(marker => marker.stopId !== null)
-          console.log(updatedMarkers)
+          console.log("updatedMarkers:", updatedMarkers)
           this.setState({
             markers: [
               ...busses,
@@ -157,18 +156,32 @@ class App extends React.Component {
   stopClickHandler(clickedMarker) {
     this.state.markers.forEach((marker, index) => {
       if (marker.stopId === clickedMarker.stopId) {
-        const newMarkers = [...this.state.markers];
+        const newMarkers = [];
         fetch(`http://localhost:3000/busStopRoutes?stopId=${marker.stopId}`)
           .then(response => response.json())
           .then((data) => {
             //takes the index of the clicked marker
-            newMarkers[index].showInfo = true;
-            newMarkers[index].info = JSON.parse(data);
-            console.log("from stopClick:", newMarkers[index].info.length)
-            //passes in the new marker object
-            this.setState({
-              markers: newMarkers
-            })
+            marker.showInfo = true;
+            marker.info = JSON.parse(data);
+            newMarkers.push(marker)
+            //Gets live bus data for specific stop
+            fetch(`http://localhost:3000/livebusroutes?stopId=${marker.stopId}`)
+              .then(response => response.json())
+              .then((res) => {
+                let busses = JSON.parse(res).map(bus => {
+                  console.log("bus", bus)
+                  const busName = `${bus.RouteNo} ${bus.Direction}`
+                  // null for stopId so to only get busses, 0 for animation so to not animate on update
+                  return createMarker(parseFloat(bus.Longitude), parseFloat(bus.Latitude), null, busName, 0);
+                })
+                //passes in the new marker object
+                this.setState({
+                  markers: [
+                    ...newMarkers,
+                    ...busses
+                  ]
+                }, () => console.log("this dot state", this.state.markers))
+              })
           })
       }
     })
