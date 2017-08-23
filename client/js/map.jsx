@@ -31,9 +31,12 @@ const Map = withGoogleMap(props => (
     ))}
 
     {props.markers.map((marker, index) => {
-    //Logic to separate busses from bus stops so they render with different icons
-    if (marker.stopId !== null && marker.stopId >= 1 ) {
-      let stopInfo = ""
+    let info = props.markers.map(marker => marker.info);
+
+      //Logic to separate busses from bus stops so they render with different icons
+        
+      if (marker.stopId !== null && marker.stopId >= 1) {
+        {/* let stopInfo = ""
       //Logic to ensure only bus stops with valid info are rendered
       if (marker.info !== undefined && marker.info.length > 0) {
         stopInfo = marker.info.map(route => {
@@ -46,7 +49,11 @@ const Map = withGoogleMap(props => (
             minute(s)
           </div>
         })
+<<<<<<< HEAD
       }
+=======
+      } */}
+>>>>>>> 8f55e456b8d1ba9d038c99d4df310c695ef0bd0f
 
         return <Marker
           {...marker}
@@ -54,12 +61,12 @@ const Map = withGoogleMap(props => (
             icon: {
               url: "../images/503.png",
               scaledSize: new google.maps.Size(50, 50)
-
             }
           }}
           onClick={() => props.onMarkerClick(marker)}
           onRightClick={() => props.onMarkerRightClick(index)}
         >
+<<<<<<< HEAD
           {marker.showInfo && (
             <InfoWindow>
               <div>{stopInfo}</div>
@@ -90,10 +97,36 @@ const Map = withGoogleMap(props => (
       }
 
 
+=======
+        </Marker>
+      } else {
+>>>>>>> 8f55e456b8d1ba9d038c99d4df310c695ef0bd0f
 
+        console.log("from busses - info", info)
+          return <Marker
+            {...marker}
+            showInfo="true"
+            options={{
+              icon: {
+                url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
+                scaledSize: new google.maps.Size(30, 30)
+              }
+            }}
+            onClick={() => props.onMarkerClick(marker)}
+            onRightClick={() => props.onMarkerRightClick(index)}
+          >
+            {marker.showInfo && (
+              <InfoWindow>
+                <div id="bus-info-window">007 WEST</div>
+              </InfoWindow>
+            )}
+          </Marker>
+            
+        
 
+      }
     })
-    }    
+    }
   </GoogleMap>
 ));
 

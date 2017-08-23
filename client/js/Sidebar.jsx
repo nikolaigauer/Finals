@@ -4,10 +4,8 @@ class Sidebar extends React.Component {
   render() {
     // Get info arrays and filter those that are truthy
     let info = this.props.markers.map(marker => marker.info).filter(Boolean);
-    console.log('infos arrays from markers:', info);
     // Compact the array of arrays into a single one and then turn it into a div
     info = info.reduce((acc, infoArray) => acc.concat(infoArray), []).map((info, index) => {
-      console.log("from sidebar marker:", info, "index:", index);
       return <div id="stop-info">
           <ul className="sidebar-nav">
             <li>
