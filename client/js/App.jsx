@@ -75,10 +75,10 @@ class App extends React.Component {
       .then(response => response.json())
       .then((data) => {
         let location = this.state.markers.slice(0, 1);
-        let stops1 = data.map(bus => {
+        let busses = data.map(bus => {
           const busName = `${bus.routeNo} ${bus.direction}`
 
-          // null for stopId
+          // null for stopId to filter out stops and keep busses
           return createMarker(parseFloat(bus.lat), parseFloat(bus.lng), null, busName);
         })
         fetch(`http://localhost:3000/get_stops_in_proximity?lat=${lat}&lng=${lng}`)
@@ -94,7 +94,7 @@ class App extends React.Component {
             let newMarkers = [
               location,
               ...stops,
-              ...stops1
+              ...busses
             ]
 
             const newCircles = this.state.circles.concat(createCircle(lat, lng))
@@ -135,7 +135,7 @@ class App extends React.Component {
 
   startAnimation() {
     //invokes auto refresh of bus locations
-    // this.handleAutoUpdate()
+    this.handleAutoUpdate()
 
     if (this.animating) return;
     this.animating = true;
@@ -146,8 +146,8 @@ class App extends React.Component {
     let newCircles = this.state.circles
     let secondCircle = this.state.circles
     newCircles.forEach(circle => {
-      circle.radius += 150 / 30
-      circle.opacity -= 1 / 30
+      circle.radius += 200 / 30
+      circle.opacity -= 1 / 40
     })
 
     newCircles = newCircles.filter(circle => circle.opacity > 0)
