@@ -36,7 +36,6 @@ const Map = withGoogleMap(props => (
 
     {props.markers.map((marker, index) => {
     let info = props.markers.map(marker => marker.info);
-    console.log("from map", marker)
       //Logic to separate busses from bus stops so they render with different icons        
       if (marker.stopId !== NaN && marker.stopId >= 1) {
         return <Marker
