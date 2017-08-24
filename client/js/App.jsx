@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import canUseDOM from "can-use-dom";
+
 
 import _ from 'lodash';
 // import { Markers } from 'react-google-maps'
@@ -41,6 +43,15 @@ function createCircle(lat, lng) {
     radius: 0
   }
 }
+const geolocation = (
+  canUseDOM && navigator.geolocation ?
+  navigator.geolocation : 
+  ({
+    getCurrentPosition(success, failure) {
+      failure(`Your browser doesn't support geolocation.`);
+    },
+  })
+);
 
 class App extends React.Component {
   constructor(props) {
@@ -124,7 +135,7 @@ class App extends React.Component {
 
   startAnimation() {
     //invokes auto refresh of bus locations
-    this.handleAutoUpdate()
+    // this.handleAutoUpdate()
 
     if (this.animating) return;
     this.animating = true;
@@ -169,13 +180,33 @@ class App extends React.Component {
           markers: newMarkers
         })
       })
-
-    // this.state.markers.find((marker, index) => {
-    //   if (marker.stopId === clickedMarker.stopId) {
-
-    //   }
-    // })
   };
+
+  componentDidMount() {
+    geolocation.getCurrentPosition((position) => {
+      if (this.isUnmounted) {
+        return;
+      }
+      this.setState({
+        center: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+        content: `Location found using HTML5.`,
+      });
+    }, (reason) => {
+      if (this.isUnmounted) {
+        return;
+      }
+      this.setState({
+        center: {
+          lat: 60,
+          lng: 105,
+        },
+        content: `Error: The Geolocation service failed (${reason}).`,
+      });
+    });
+  }
 
 
   render() {
@@ -192,7 +223,10 @@ class App extends React.Component {
           circles={this.state.circles}
           markers={this.state.markers}
           onMarkerClick={this.stopClickHandler}
+          center={this.state.center}
+
         />
+        
         <Sidebar
           markers={this.state.markers}
         />
