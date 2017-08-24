@@ -42,8 +42,9 @@ const Map = withGoogleMap(props => (
           {...marker}
           options={{
             icon: {
-              url: "https://image.flaticon.com/icons/png/512/0/622.png",
-              scaledSize: new google.maps.Size(30, 30)
+              url: "https://image.flaticon.com/icons/png/128/0/622.png",
+              scaledSize: new google.maps.Size(40, 40)
+
             }
           }}
           onClick={() => props.onMarkerClick(marker)}
@@ -56,7 +57,7 @@ const Map = withGoogleMap(props => (
             options={{
               icon: {
                 url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
-                scaledSize: new google.maps.Size(20, 20)
+                scaledSize: new google.maps.Size(25, 25)
               }
             }}
           >
