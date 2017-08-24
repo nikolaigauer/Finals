@@ -43,7 +43,6 @@ const Map = withGoogleMap(props => (
             }
           }}
           onClick={() => props.onMarkerClick(marker)}
-          onRightClick={() => props.onMarkerRightClick(index)}
         >
         </Marker>
       } else {
@@ -57,8 +56,6 @@ const Map = withGoogleMap(props => (
                 scaledSize: new google.maps.Size(30, 30)
               }
             }}
-            onClick={() => props.onMarkerClick(marker)}
-            onRightClick={() => props.onMarkerRightClick(index)}
           >
             {marker.showInfo && (
               <InfoWindow>

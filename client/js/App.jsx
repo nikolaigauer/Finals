@@ -121,9 +121,10 @@ class App extends React.Component {
     }, 5000)
   }
 
+
   startAnimation() {
     //invokes auto refresh of bus locations
-    this.handleAutoUpdate()
+    // this.handleAutoUpdate()
 
     if (this.animating) return;
     this.animating = true;
@@ -153,22 +154,27 @@ class App extends React.Component {
 
   // Handles clicks on bus stops
   stopClickHandler(clickedMarker) {
-    this.state.markers.forEach((marker, index) => {
-      if (marker.stopId === clickedMarker.stopId) {
-        const newMarkers = [...this.state.markers];
-        fetch(`http://localhost:3000/busStopRoutes?stopId=${marker.stopId}`)
-          .then(response => response.json())
-          .then((data) => {
-            //takes the index of the clicked marker
-            newMarkers[index].showInfo = true;
-            newMarkers[index].info = JSON.parse(data);
-            //passes in the new marker object
-            this.setState({
-              markers: newMarkers
-            })
-          })
-      }
-    })
+    const newMarkers = [...this.state.markers];
+    newMarkers.forEach(marker => marker.showInfo = false)
+    const index = this.state.markers.findIndex(marker => marker.stopId === clickedMarker.stopId)
+    fetch(`http://localhost:3000/busStopRoutes?stopId=${clickedMarker.stopId}`)
+      .then(response => response.json())
+      .then(data => JSON.parse(data))
+      .then((data) => {
+        //takes the index of the clicked marker
+        newMarkers[index].showInfo = true;
+        newMarkers[index].info = data;
+        //passes in the new marker object
+        this.setState({
+          markers: newMarkers
+        })
+      })
+
+    // this.state.markers.find((marker, index) => {
+    //   if (marker.stopId === clickedMarker.stopId) {
+
+    //   }
+    // })
   };
 
 
