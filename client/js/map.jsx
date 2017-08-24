@@ -7,7 +7,7 @@ import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from "react-goog
 const Map = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={16}
+    defaultZoom={17}
     center={props.center}
     /* defaultCenter={{ lat: 49.28705656602098, lng:  -123.1417715549469}} */
     onClick={props.onMapClick}
@@ -29,15 +29,16 @@ const Map = withGoogleMap(props => (
           fillOpacity: 10,
           strokeColor: "black",
           strokeOpacity: circle.opacity,
-          strokeWeight: 10,
+          strokeWeight: 1,
         }}
       />
     ))}
 
     {props.markers.map((marker, index) => {
     let info = props.markers.map(marker => marker.info);
+    console.log("from map", marker)
       //Logic to separate busses from bus stops so they render with different icons        
-      if (marker.stopId !== null && marker.stopId >= 1) {
+      if (marker.stopId !== NaN && marker.stopId >= 1) {
         return <Marker
           {...marker}
           options={{
@@ -49,8 +50,7 @@ const Map = withGoogleMap(props => (
           onClick={() => props.onMarkerClick(marker)}
         >
         </Marker>
-      } else {
-
+      } else if (marker.stopId === null) {
           return <Marker
             {...marker}
             showInfo="true"
@@ -62,7 +62,7 @@ const Map = withGoogleMap(props => (
             }}
           >
             {marker.showInfo && (
-              <InfoWindow>
+              <InfoWindow key="Math.random()">
                 <div id="bus-info-window">{marker.busName}</div>
               </InfoWindow>
             )}

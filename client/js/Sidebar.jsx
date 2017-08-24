@@ -6,24 +6,24 @@ class Sidebar extends React.Component {
     let info = this.props.markers.filter(marker => marker.showInfo).map(marker => marker.info);
     // Compact the array of arrays into a single one and then turn it into a div
     info = info.reduce((acc, infoArray) => acc.concat(infoArray), []).map((info, index) => {
+      let departure = info.Schedules[0].ExpectedCountdown
       return <div id="stop-info">
-         <ul className="sidebar-nav"> 
-          <h2>
+        <ul className="sidebar-nav">
+          <h2 className="route">
             {info.RouteNo}
           </h2>
-          <li>
+          <li className="direction">
             Direction: {info.Direction}
           </li>
-          <li>
+          <li className="destiantion">
             Towards: {info.Schedules[0].Destination}
           </li>
-          <li>
-            Leaving in: {info.Schedules[0].ExpectedCountdown} minute(s)
+          <li className="departure">
+            Leaving in: {departure}  minute(s)
          </li>
-         </ul> 
+        </ul>
       </div>
     });
-
     return (
       <div id="sidebar">
         {info}
