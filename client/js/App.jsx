@@ -57,9 +57,9 @@ class App extends React.Component {
   }
 
   handleMarkerDrop(e) {
-    console.log(e.latLng.lat(), e.latLng.lng())
     const lat = e.latLng.lat()
     const lng = e.latLng.lng()
+    console.log(lat, lng)
     fetch(`http://localhost:3000/buses_coord?lat=${lat}&lng=${lng}`)
       .then(response => response.json())
       .then((data) => {
@@ -124,7 +124,7 @@ class App extends React.Component {
 
   startAnimation() {
     //invokes auto refresh of bus locations
-    // this.handleAutoUpdate()
+    this.handleAutoUpdate()
 
     if (this.animating) return;
     this.animating = true;
@@ -191,7 +191,6 @@ class App extends React.Component {
           onMapClick={(event) => this.handleMarkerDrop(event)}
           circles={this.state.circles}
           markers={this.state.markers}
-          onMarkerRightClick={() => { console.log("HELLO") }}
           onMarkerClick={this.stopClickHandler}
         />
         <Sidebar

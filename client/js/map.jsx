@@ -5,7 +5,7 @@ const Map = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
     defaultZoom={18}
-    defaultCenter={{ lat: 49.2820563, lng: -123.1093474 }}
+    defaultCenter={{ lat: 49.28705656602098, lng:  -123.1417715549469}}
     onClick={props.onMapClick}
     defaultOptions={{
       disableDefaultUI: true,
@@ -38,7 +38,7 @@ const Map = withGoogleMap(props => (
           {...marker}
           options={{
             icon: {
-              url: "../images/503.png",
+              url: "https://image.flaticon.com/icons/png/512/0/622.png",
               scaledSize: new google.maps.Size(40, 40)
             }
           }}
