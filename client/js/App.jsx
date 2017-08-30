@@ -70,7 +70,6 @@ class App extends React.Component {
   handleMarkerDrop(e) {
     const lat = e.latLng.lat()
     const lng = e.latLng.lng()
-    console.log(lat, lng)
     fetch(`http://localhost:3000/buses_coord?lat=${lat}&lng=${lng}`)
       .then(response => response.json())
       .then((data) => {
