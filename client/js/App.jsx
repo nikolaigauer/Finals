@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import canUseDOM from "can-use-dom";
 
 
-import _ from 'lodash';
 import Map from "./map.jsx";
 import Sidebar from "./sidebar.jsx";
-import stops from '../../server/db/json/stops.js';
+// import stops from '../../server/db/json/stops.js';
 
 import '../scss/application.scss';
 
