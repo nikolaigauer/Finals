@@ -4,7 +4,6 @@ import canUseDOM from "can-use-dom";
 
 import Map from "./map.jsx";
 import Sidebar from "./sidebar.jsx";
-// import stops from '../../server/db/json/stops.js';
 
 import '../scss/application.scss';
 
@@ -23,6 +22,7 @@ function createMarker(lat, lng, stopId, busName = "", defaultAnimation = 2) {
     busName: busName
   }
 }
+
 function createCircle(lat, lng) {
   return {
     position: {
@@ -34,14 +34,15 @@ function createCircle(lat, lng) {
     radius: 0
   }
 }
+
 const geolocation = (
   canUseDOM && navigator.geolocation ?
-  navigator.geolocation : 
-  ({
-    getCurrentPosition(success, failure) {
-      failure(`Your browser doesn't support geolocation.`);
-    },
-  })
+    navigator.geolocation :
+    ({
+      getCurrentPosition(success, failure) {
+        failure(`Your browser doesn't support geolocation.`);
+      },
+    })
 );
 
 class App extends React.Component {
@@ -120,7 +121,6 @@ class App extends React.Component {
     }, 5000)
   }
 
-
   startAnimation() {
     //invokes auto refresh of bus locations
     this.handleAutoUpdate()
@@ -196,7 +196,6 @@ class App extends React.Component {
     });
   }
 
-
   render() {
     return (
       <div id="map-wrapper">
@@ -212,9 +211,8 @@ class App extends React.Component {
           markers={this.state.markers}
           onMarkerClick={this.stopClickHandler}
           center={this.state.center}
-
         />
-        
+
         <Sidebar
           markers={this.state.markers}
         />

@@ -1,9 +1,6 @@
 import React from 'react';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow, Circle } from "react-google-maps";
 
-
-
-
 const Map = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
@@ -35,7 +32,7 @@ const Map = withGoogleMap(props => (
     ))}
 
     {props.markers.map((marker, index) => {
-    let info = props.markers.map(marker => marker.info);
+      let info = props.markers.map(marker => marker.info);
       //Logic to separate busses from bus stops so they render with different icons        
       if (marker.stopId !== NaN && marker.stopId >= 1) {
         return <Marker
@@ -44,29 +41,28 @@ const Map = withGoogleMap(props => (
             icon: {
               url: "https://image.flaticon.com/icons/png/128/0/622.png",
               scaledSize: new google.maps.Size(40, 40)
-
             }
           }}
           onClick={() => props.onMarkerClick(marker)}
         >
         </Marker>
       } else if (marker.stopId === null) {
-          return <Marker
-            {...marker}
-            showInfo="true"
-            options={{
-              icon: {
-                url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
-                scaledSize: new google.maps.Size(25, 25)
-              }
-            }}
-          >
-            {marker.showInfo && (
-              <InfoWindow key="Math.random()">
-                <div id="bus-info-window">{marker.busName}</div>
-              </InfoWindow>
-            )}
-          </Marker>           
+        return <Marker
+          {...marker}
+          showInfo="true"
+          options={{
+            icon: {
+              url: "http://www.clker.com/cliparts/P/H/9/k/y/q/orange-bus-hi.png",
+              scaledSize: new google.maps.Size(25, 25)
+            }
+          }}
+        >
+          {marker.showInfo && (
+            <InfoWindow key="Math.random()">
+              <div id="bus-info-window">{marker.busName}</div>
+            </InfoWindow>
+          )}
+        </Marker>
       }
     })
     }
