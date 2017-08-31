@@ -1,7 +1,8 @@
 # Sonar
 An original app making use of Translink's real-time API. Busses and stops are rendered in a 150 m radius around the user. Click a bus stop to view real-time scheduling information.
 
-![Image of Yaktocat](https://github.com/nikolaigauer/Sonar/blob/master/sonar.PNG)
+![](https://github.com/nikolaigauer/Sonar/blob/master/sonar.PNG)
+
 ## Installation:
 
 ### 1. Clone repo
