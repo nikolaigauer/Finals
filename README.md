@@ -23,3 +23,7 @@ open http://localhost:3000 in your browser
 - babel-loader
 - webpack-dev-server
 - Postgres + PostGIS
+
+## Credits
+
+Sonar was created by Vidushan Kohiladas & Nikolai Gauer. It is no longer maintained. 
